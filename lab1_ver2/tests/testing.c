@@ -1,14 +1,26 @@
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <assertions.h>
 #include <testing.h>
 #include <float.h>
-#include <support_funcs.h>
+#include <wAssist_funcs.h>
 
+TEST(test_equality) {
+    double data = 1;
+    double bound = 1;
+    int result = equal(data, bound);
+    int expect = 1;
+    assert(result == expect);
 
+    data = 1;
+    bound = 0;
+    result = equal(data, bound);
+    expect = 0;
+    assert(result == expect);
+}
 
+/*
 TEST(test_summation) {
     double num = 1;
     double add = 1;
@@ -788,7 +800,7 @@ TEST(test_where){
 //-------------------------------------------------------------------full_ready tests
 
 
-/*
+
 double* where_concat(int (**where_funcs)(double, double, int), double* arr, 
                     size_t* size, double* cond_data_array, int* cond_array, 
                     size_t operations_ammount, int* operations){

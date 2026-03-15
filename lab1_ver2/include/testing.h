@@ -1,6 +1,6 @@
 #ifndef TESTING_H
 #define TESTING_H
-#include "assertions.h"
+#include <assertions.h>
 
 typedef void (*test_func)(void);
 
