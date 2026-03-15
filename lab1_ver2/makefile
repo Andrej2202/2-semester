@@ -21,7 +21,7 @@ $(MAIN_OBJS): | dirs
 $(MAIN_TARGET): $(MAIN_OBJS)
 	$(CC) $(CFLAGS) $(MAIN_OBJS) -o $@
 
-# 🔧 Прямые слеши в шаблонных правилах!
+
 build/obj/%.o: src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
