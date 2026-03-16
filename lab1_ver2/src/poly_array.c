@@ -100,6 +100,10 @@ static struct DynamicArray* _where(const struct DynamicArray * this, predicat p)
     return result_array;
 }
 struct DynamicArray* where(const struct DynamicArray * this, predicat p){
+    if(this == NULL || p == NULL){
+        printf("Ошибка передачи данных в where\n");
+        return NULL;
+    }
     return this->t->where(this, p);
 }
 
@@ -145,6 +149,10 @@ static struct DynamicArray* _concat(const struct DynamicArray* arr1, const struc
     return result;
 }
 struct DynamicArray* concat(const struct DynamicArray* arr1, const struct DynamicArray* arr2){
+    if(arr1 == NULL || arr1 == NULL){
+        printf("Ошибка передачи данных в concat\n");
+        return NULL;
+    }
     return arr1->t->concat(arr1, arr2);
 }
 
@@ -181,6 +189,10 @@ static struct DynamicArray* _map(const struct DynamicArray* this, transformer t)
     return result_array;
 }
 struct DynamicArray* map(const struct DynamicArray* this, transformer t){
+    if(this == NULL || t == NULL){
+        printf("Ошибка передачи данных в map\n");
+        return NULL;
+    }
     struct TypeInfoDouble* double_type = (struct TypeInfoDouble*)this->t;
     if (double_type->map == NULL) {
         printf("Ошибка: map не поддерживается для данного типа массива.\n");

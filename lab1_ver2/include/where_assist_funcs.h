@@ -1,5 +1,5 @@
-#ifndef WASSIST_FUNCS_H
-#define WASSIST_FUNCS_H
+#ifndef WHERE_ASSIST_FUNCS_H
+#define WHERE_ASSIST_FUNCS_H
 
 int divide(double num, double numer);
 int not_divide(double num, double numer);

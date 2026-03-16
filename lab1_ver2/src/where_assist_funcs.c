@@ -1,3 +1,5 @@
+#include <where_assist_funcs.h>
+
 int divide(double num, double numer){
     if((int)numer == 0){
         return 0;

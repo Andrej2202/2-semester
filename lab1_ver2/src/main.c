@@ -3,9 +3,9 @@
 #include <sys_funcs.h>
 #include <poly_array.h>
 #include <map_funcs.h>
-#include <map_assist_funcs.h>
+//#include <map_assist_funcs.h>
 #include <where_funcs.h>
-#include <wAssist_funcs.h>
+#include <where_assist_funcs.h>
 
 
 int main() {
@@ -56,8 +56,14 @@ int main() {
     }
     printf("%.3lf]\n\n", ((double*)doubles3->data)[doubles3->size - 1]);
     
-
-
+    free(doubles->data);
+    free(doubles1->data);
+    free(doubles2->data);
+    free(doubles3->data);
+    free(doubles);
+    free(doubles1);
+    free(doubles2);
+    free(doubles3);
 
     printf("--------------------------------------------------------------------------------");
 
@@ -83,5 +89,14 @@ int main() {
     printf("Кол-во эл-тов в funcs2 data(после where): %lld\n", funcs3->size);
     
     
+
+    free(funcs->data);
+    free(funcs1->data);
+    free(funcs2->data);
+    free(funcs3->data);
+    free(funcs);
+    free(funcs1);
+    free(funcs2);
+    free(funcs3);
     return 0;
 }
