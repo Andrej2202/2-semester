@@ -5,7 +5,7 @@
 static struct DynamicArray* _where(const struct DynamicArray * this, predicat p);
 static struct DynamicArray* _concat(const struct DynamicArray* arr1, const struct DynamicArray* arr2);
 static struct DynamicArray* _map(const struct DynamicArray* this, transformer t);
-
+ 
 
 static size_t _get_double_size(){
     return sizeof(double);
