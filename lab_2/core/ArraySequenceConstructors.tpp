@@ -1,10 +1,9 @@
 template<class T>
 ArraySequence<T>::ArraySequence(T* items, int count) {
     if (count < 0) 
-        throw std::invalid_argument("Argument out of range in constructor");
+        throw InvalidArgumentException("Argument out of range in constructor");
     data_ = new DynamicArray<T>(items, count);
 }
-
 
 template<class T>
 ArraySequence<T>::Arraysequence(const LinkedList <T> & list){

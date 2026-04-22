@@ -42,10 +42,31 @@ void ArraySequence<T>::InsertAtInternal(T item, int index){
 
 template<class T>
 Sequence<T>* ArraySequence<T>::InsertAt(T item, int index){
-    if (index < 0 || index >= this->GetLength()) {
-        throw IndexOutOfRangeException("Index out of range in GetSubList methode ArraySequence.");
-    }
     Sequence<T>* target = this->Instance();
     static_cast<ArraySequence<T>*>(target)->InsertAtInternal(item, index);
+    return target;
+}
+
+
+template<class T>
+void ArraySequence<T>::ConcatInternal(Sequence<T>* smth) {
+    if (smth == nullptr) {
+        throw InvalidArgumentException("Cannot concatenate with null sequence");
+    }
+
+    int currentSize = data_->GetSize();
+    int otherSize = smth->GetLength();
+    if (otherSize == 0) return;
+
+    data_->Resize(currentSize + otherSize);
+    for (int i = 0; i < otherSize; ++i) {
+        data_->Set(currentSize + i, smth->Get(i));
+    }
+}
+
+template<class T>
+Sequence<T>* ArraySequence<T>::Concat(Sequence<T>* smth){
+    Sequence<T>* target = this->Instance();
+    static_cast<ArraySequence<T>*>(target)->ConcatInternal(smth);
     return target;
 }
