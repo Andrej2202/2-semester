@@ -12,7 +12,7 @@ DynamicArray<T> :: DynamicArray(int size) : size_(size){
 template <class T>
 DynamicArray<T> :: DynamicArray(T* items, int count) : size_(count){
     if(count < 0 or count > MAX_ARR_SIZE){
-        throw InvalidArgumentException();
+        throw InvalidArgumentException("Argument out of range in constructor");
     }
     data_ = new T[size_];
     std::copy(items, items + size_, data_);
@@ -26,7 +26,7 @@ DynamicArray<T>::DynamicArray(const DynamicArray<T>& other) : size_(other.size_)
 
 template<class T>
 T DynamicArray<T>::Get(int index){
-    if(index < 0 || index > size_){
+    if(index < 0 || index >= size_){
         throw IndexOutOfRangeException("Index out of range in Get methode DynamicArray.");
     }
     return data_[index];
@@ -34,7 +34,7 @@ T DynamicArray<T>::Get(int index){
 
 template<class T>
 void DynamicArray<T>::Set(int index, T value){
-    if(index < 0 || index > size_){
+    if(index < 0 || index >= size_){
         throw IndexOutOfRangeException("Index out of range in Get methode DynamicArray.");
     }
     data_[index] = value;
