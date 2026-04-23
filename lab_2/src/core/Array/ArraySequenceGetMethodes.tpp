@@ -1,5 +1,5 @@
 template<class T>
-ArraySequence<T>* ArraySequence<T>::GetSubList(int startIndex, int endIndex){
+Sequence<T>* ArraySequence<T>::GetSubsequence(int startIndex, int endIndex){
     if(startIndex < 0 || endIndex >= data_->GetSize() || startIndex > endIndex){
         throw IndexOutOfRangeException("Index out of range in GetSubList methode ArraySequence.");
     }

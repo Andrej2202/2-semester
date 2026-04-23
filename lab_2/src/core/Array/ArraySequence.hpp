@@ -1,4 +1,7 @@
 #pragma once
+#include "Sequence.hpp"
+#include "DynamicArray.hpp"
+#include <Exceptions.hpp>
 
 template <class T> 
 class ArraySequence : public Sequence<T> { 
@@ -21,18 +24,18 @@ public:
     explicit ArraySequence(const ArraySequence<T> & array);
     virtual ~ArraySequence(){delete data;}
 
-    T GetFirst(){return data_.Get(0);}
-    T GetLast(){return data_.Get(data_.GetLength() - 1);}
-    T Get(int index){return data_.Get(index)}
-    int GetLength(){return data_.GetSize()}
-    ArraySequence<T>* GetSubList(int startIndex, int endIndex);
+    T GetFirst() const override { return data_->Get(0); }
+    T GetLast() const override { return data_->Get(data_->GetSize() - 1); }
+    T Get(int index) const override { return data_->Get(index); }
+    int GetLength() const override { return data_->GetSize(); }
+    Sequence<T>* GetSubsequence(int startIndex, int endIndex) const override;
 
 
     //нуно Mutable/imutable
-    Sequence<T>* Append(T item);
-    Sequence<T>* Prepend(T item);
-    Sequence<T>* InsertAt(T item, int index);
-    Sequence<T>* Concat(Sequence<T> *smth);
+    Sequence<T>* Append(T item) override;
+    Sequence<T>* Prepend(T item) override;
+    Sequence<T>* InsertAt(T item, int index) override;
+    Sequence<T>* Concat(Sequence<T>* list) override;
     
     
 };

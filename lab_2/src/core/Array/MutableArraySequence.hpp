@@ -1,15 +1,16 @@
 #pragma once
+#include "ArraySequence.hpp"
 
 template<class T>
-class ImmutableArraySequence : public ArraySequence<T> {
+class MutableArraySequence : public ArraySequence<T> {
 public:
     using ArraySequence<T>::ArraySequence;
 
     ArraySequence<T>* Clone() const override {
-        return new ImmutableArraySequence<T>(*this);
+        return new MutableArraySequence<T>(*this);
     }
     
     Sequence<T>* Instance() override { 
-        return this->Clone();
+        return this;
     }
 };
