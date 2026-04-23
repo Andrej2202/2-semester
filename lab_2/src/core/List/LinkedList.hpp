@@ -1,5 +1,6 @@
 #pragma once
 #include <Exceptions.hpp>
+constexpr int MAX_ARR_SIZE = 100000;
 
 template <class T>
 class LinkedList {
@@ -12,8 +13,6 @@ private:
 
     Node_* head_;
     Node_* tail_;
-    int length_;
-
     
     void clear() {
         Node_* current = head_;
@@ -23,11 +22,10 @@ private:
             current = next;
         }
         head_ = tail_ = nullptr;
-        length_ = 0;
     }
 
 public:
-    LinkedList() : head_(nullptr), tail_(nullptr), length_(0) {}
+    LinkedList() : head_(nullptr), tail_(nullptr) {}
     explicit LinkedList(T* items, int count);
     explicit LinkedList(const LinkedList<T>& other);
     ~LinkedList() {clear();}

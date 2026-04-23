@@ -1,13 +1,18 @@
-#include "LinkedList.hpp"
-
 template <class T>
-LinkedList<T>::LinkedList(T* items, int count) : head_(nullptr), tail_(nullptr), length_(0) {
-    if (count < 0) throw std::invalid_argument("Negative count in LinkedList constructor");
-    for (int i = 0; i < count; ++i) Append(items[i]);
+LinkedList<T>::LinkedList(T* items, int count) : head_(nullptr), tail_(nullptr) {
+    if (count < 0){
+        throw InvalidArgumentException("LinkedList",  "constructor with items & count");
+    } 
+    if (count > MAX_ARR_SIZE){
+        throw InvalidArgumentException("I'm just a little indi developer, don't push to much elements :(");
+    }
+    for (int i = 0; i < count; i++){
+        Append(items[i]);
+    }
 }
 
 template <class T>
-LinkedList<T>::LinkedList(const LinkedList<T>& other) : head_(nullptr), tail_(nullptr), length_(0) {
+LinkedList<T>::LinkedList(const LinkedList<T>& other) : head_(nullptr), tail_(nullptr) {
     Node_* current = other.head_;
     while (current != nullptr) {
         Node_* newNode_ = new Node_(current->data);
@@ -16,7 +21,6 @@ LinkedList<T>::LinkedList(const LinkedList<T>& other) : head_(nullptr), tail_(nu
             tail_->next = newNode_;
             tail_ = newNode_;
         }
-        length_++;
         current = current->next;
     }
 }

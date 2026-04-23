@@ -4,22 +4,26 @@
 
 class IndexOutOfRangeException : public std::exception {
 private:
-    std::string message;
+    std::string message_;
 public:
-    IndexOutOfRangeException() : message("Index out of range") {}
-    IndexOutOfRangeException(const std::string& msg) : message(msg) {}
-    IndexOutOfRangeException(const char* msg) : message(msg ? msg : "Unknown index error") {}
+    IndexOutOfRangeException() : message_("Index out of range") {}
+    IndexOutOfRangeException(const std::string& msg) : message_(msg) {}
+    IndexOutOfRangeException(const std::string& container, const std::string& method, const std::string& issue) 
+        : message_("Index out of range in " + container + " in methode " + method + " \nissue: " + issue) {}
+    IndexOutOfRangeException(const char* msg) : message_(msg ? msg : "Unknown index error") {}
 
-    const char* what() const noexcept override {return message.c_str();}
+    const char* what() const noexcept override {return message_.c_str();}
 };
 
 class InvalidArgumentException : public std::exception {
 private:
-    std::string message;
+    std::string message_;
 public:
-    InvalidArgumentException() : message("Invalid argument") {}
-    InvalidArgumentException(const std::string& msg) : message(msg) {}
-    InvalidArgumentException(const char* msg) : message(msg ? msg : "Unknown invalid argument") {}
+    InvalidArgumentException() : message_("Invalid argument") {}
+    InvalidArgumentException(const std::string& msg) : message_(msg) {}
+    InvalidArgumentException(const std::string& container, const std::string& method, const std::string& issue) 
+        : message_("Index out of range in " + container + " in methode " + method + " \nissue: " + issue) {}
+    InvalidArgumentException(const char* msg) : message_(msg ? msg : "Unknown invalid argument") {}
 
-    const char* what() const noexcept override {return message.c_str();}
+    const char* what() const noexcept override {return message_.c_str();}
 };
