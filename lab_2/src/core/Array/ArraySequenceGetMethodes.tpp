@@ -2,6 +2,7 @@ template<class T>
 Sequence<T>* ArraySequence<T>::GetSubsequence(int startIndex, int endIndex){
     if(startIndex < 0 || endIndex >= data_->GetSize() || startIndex > endIndex){
         throw IndexOutOfRangeException("Index out of range in GetSubList methode ArraySequence.");
+        throw IndexOutOfRangeException("ArraySequence", "GetSubList", "size of new container out of range.");
     }
     int buffer_length = endIndex - startIndex + 1;
     T* buffer = new T[buffer_length];

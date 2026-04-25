@@ -10,7 +10,7 @@ int ListSequence<T>::GetLength() const { return data_->GetLength(); }
 template<class T>
 Sequence<T>* ListSequence<T>::GetSubsequence(int startIndex, int endIndex) const {
     if (startIndex < 0 || endIndex >= data_->GetLength() || startIndex > endIndex)
-        throw IndexOutOfRange("Invalid subsequence range");
+        throw IndexOutOfRange("ListSequence", "GetSubsequence", "Invalid subsequence range.");
     LinkedList<T>* subList = data_->GetSubList(startIndex, endIndex);
     Sequence<T>* result = this->Clone();
     delete static_cast<ListSequence<T>*>(result)->data_;

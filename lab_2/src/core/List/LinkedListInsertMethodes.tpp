@@ -23,11 +23,11 @@ void LinkedList<T>::Prepend(T item) {
 template<class T>
 void LinkedList<T>::InsertAt(T item, int index) {
     if (index < 0)
-        throw IndexOutOfRangeException("LinkedList", "InsertAt");
+        throw IndexOutOfRangeException("LinkedList", "InsertAt", "index < 0");
     
     int currentLength = GetLength();
     if (index >= currentLength) 
-        throw IndexOutOfRangeException("LinkedList", "InsertAt");
+        throw IndexOutOfRangeException("LinkedList", "InsertAt", "index > length");
         
     if (index == 0) {
         Prepend(item);

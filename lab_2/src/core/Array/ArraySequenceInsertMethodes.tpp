@@ -51,7 +51,7 @@ Sequence<T>* ArraySequence<T>::InsertAt(T item, int index){
 template<class T>
 void ArraySequence<T>::ConcatInternal(Sequence<T>* smth) {
     if (smth == nullptr) {
-        throw InvalidArgumentException("Cannot concatenate with null sequence");
+        throw InvalidArgumentException("ArraySequence", "concatenatination", "Cannot concatenate with null sequence.");
     }
 
     int currentSize = data_->GetSize();

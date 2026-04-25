@@ -1,7 +1,7 @@
 template<class T>
 ArraySequence<T>::ArraySequence(T* items, int count) {
     if (count < 0) 
-        throw InvalidArgumentException("Argument out of range in constructor");
+        throw InvalidArgumentException("DynamicArray", "constructor", "size of container out of range.");
     data_ = new DynamicArray<T>(items, count);
 }
 
