@@ -1,6 +1,6 @@
 #pragma once
 #include <Exceptions.hpp>
-constexpr int MAX_ARR_SIZE = 100000;
+#include <Config.hpp>
 
 template <class T>
 class LinkedList {

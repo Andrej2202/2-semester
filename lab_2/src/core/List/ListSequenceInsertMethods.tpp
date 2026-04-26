@@ -45,7 +45,7 @@ void ListSequence<T>::ConcatInternal(Sequence<T>* smth) {
 
 template<class T>
 Sequence<T>* ListSequence<T>::Concat(Sequence<T>* smth){
-    Sequence<T>* target = this->Instance();
+    Sequence<T>* target = this->Clone();
     static_cast<ListSequence<T>*>(target)->ConcatInternal(smth);
     return target;
 }

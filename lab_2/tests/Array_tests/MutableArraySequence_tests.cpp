@@ -1,0 +1,129 @@
+#include <gtest/gtest.h>
+#include <string>
+#include <Exceptions.hpp>
+#include <ArraySequence.hpp>
+#include <MutableArraySequence.hpp>
+
+TEST(MutableArraySequenceTest, AppendPrependInsertAt_ModifyInPlace) {
+    MutableArraySequence<int> seq;
+    EXPECT_EQ(seq.GetLength(), 0);
+
+    seq.Append(10);
+    seq.Append(20);
+    seq.Prepend(0);
+    seq.InsertAt(99, 2);
+
+    EXPECT_EQ(seq.GetLength(), 4);
+    EXPECT_EQ(seq.Get(0), 0);
+    EXPECT_EQ(seq.Get(1), 10);
+    EXPECT_EQ(seq.Get(2), 99);
+    EXPECT_EQ(seq.Get(3), 20);
+}
+
+TEST(MutableArraySequenceTest, AppendReturnsThis_NoDeleteNeeded) {
+    MutableArraySequence<int> seq;
+    Sequence<int>* res = seq.Append(42);
+    
+    EXPECT_EQ(res, &seq);
+    EXPECT_EQ(seq.GetLength(), 1);
+}
+
+TEST(MutableArraySequenceTest, InsertAt_BoundaryAndInvalid) {
+    MutableArraySequence<int> seq;
+    seq.Append(10);
+    seq.Append(20);
+
+    EXPECT_NO_THROW(seq.InsertAt(99, 0));
+    EXPECT_EQ(seq.GetLength(), 3);
+    EXPECT_EQ(seq.Get(0), 99);
+    EXPECT_EQ(seq.Get(1), 10);
+
+    EXPECT_NO_THROW(seq.InsertAt(55, 2));
+    EXPECT_EQ(seq.GetLength(), 4);
+    EXPECT_EQ(seq.Get(2), 55);
+    EXPECT_EQ(seq.Get(3), 20);
+
+    EXPECT_THROW(seq.InsertAt(10, -1), IndexOutOfRangeException);
+    EXPECT_THROW(seq.InsertAt(10, 4), IndexOutOfRangeException);
+    EXPECT_THROW(seq.InsertAt(10, 100), IndexOutOfRangeException);
+}
+
+TEST(SequenceOpsTest, GetSubsequence_ValidRange_Inclusive) {
+    int arr[] = {1, 2, 3, 4, 5};
+    MutableArraySequence<int> seq(arr, 5);
+    
+    Sequence<int>* sub = seq.GetSubsequence(1, 3);
+    ASSERT_NE(sub, nullptr);
+    EXPECT_EQ(sub->GetLength(), 3);
+    EXPECT_EQ(sub->Get(0), 2);
+    EXPECT_EQ(sub->Get(1), 3);
+    EXPECT_EQ(sub->Get(2), 4);
+    
+    delete sub;
+}
+
+TEST(SequenceOpsTest, GetSubsequence_BoundaryAndSingleElement) {
+    MutableArraySequence<int> seq;
+    seq.Append(10); seq.Append(20); seq.Append(30);
+    
+    Sequence<int>* sub = seq.GetSubsequence(0, 0);
+    EXPECT_EQ(sub->GetLength(), 1);
+    EXPECT_EQ(sub->Get(0), 10);
+    delete sub;
+    
+    sub = seq.GetSubsequence(2, 2);
+    EXPECT_EQ(sub->Get(0), 30);
+    delete sub;
+}
+
+TEST(SequenceOpsTest, GetSubsequence_InvalidThrows) {
+    int arr[] = {1, 2, 3};
+    MutableArraySequence<int> seq(arr, 3);
+    
+    EXPECT_THROW(seq.GetSubsequence(-1, 2), IndexOutOfRangeException);
+    EXPECT_THROW(seq.GetSubsequence(0, 3), IndexOutOfRangeException);
+    EXPECT_THROW(seq.GetSubsequence(2, 1), IndexOutOfRangeException);
+}
+
+TEST(SequenceOpsTest, Concat_BasicAndEmpty) {
+    int a1[] = {1, 2};
+    int a2[] = {3, 4, 5};
+    MutableArraySequence<int> seq1(a1, 2);
+    MutableArraySequence<int> seq2(a2, 3);
+    MutableArraySequence<int> empty;
+    
+    Sequence<int>* concat = seq1.Concat(&seq2);
+    EXPECT_EQ(concat->GetLength(), 5);
+    EXPECT_EQ(concat->Get(0), 1);
+    EXPECT_EQ(concat->GetLast(), 5);
+    delete concat;
+    
+    concat = seq1.Concat(&empty);
+    EXPECT_EQ(concat->GetLength(), 2);
+    delete concat;
+    
+    concat = empty.Concat(&seq1);
+    EXPECT_EQ(concat->GetLength(), 2);
+    delete concat;
+}
+
+TEST(SequenceOpsTest, Concat_NullPtrThrows) {
+    MutableArraySequence<int> seq;
+    seq.Append(1);
+    EXPECT_THROW(seq.Concat(nullptr), InvalidArgumentException);
+}
+
+TEST(SequenceExceptionsTest, AllAccessorsThrowOnEmptyOrOutOfRange) {
+    MutableArraySequence<int> seq;
+    seq.Append(42);
+    
+    EXPECT_THROW(seq.Get(-1), IndexOutOfRangeException);
+    EXPECT_THROW(seq.Get(1), IndexOutOfRangeException);
+    EXPECT_THROW(seq.InsertAt(10, 5), IndexOutOfRangeException);
+    
+    Sequence<int>* empty = new MutableArraySequence<int>();
+    EXPECT_THROW(empty->GetFirst(), IndexOutOfRangeException);
+    EXPECT_THROW(empty->GetLast(), IndexOutOfRangeException);
+    EXPECT_THROW(empty->Get(0), IndexOutOfRangeException);
+    delete empty;
+}

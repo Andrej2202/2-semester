@@ -3,6 +3,9 @@
 #include "DynamicArray.hpp"
 #include <Exceptions.hpp>
 
+template<typename T> class LinkedList; 
+
+
 template <class T> 
 class ArraySequence : public Sequence<T> { 
 private:
@@ -22,7 +25,7 @@ public:
     explicit ArraySequence(T* items, int count);
     explicit ArraySequence(const LinkedList <T> & list);
     explicit ArraySequence(const ArraySequence<T> & array);
-    virtual ~ArraySequence(){delete data;}
+    virtual ~ArraySequence(){delete data_;}
 
     T GetFirst() const override { return data_->Get(0); }
     T GetLast() const override { return data_->Get(data_->GetSize() - 1); }
@@ -36,8 +39,6 @@ public:
     Sequence<T>* Prepend(T item) override;
     Sequence<T>* InsertAt(T item, int index) override;
     Sequence<T>* Concat(Sequence<T>* list) override;
-    
-    
 };
 
 

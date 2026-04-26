@@ -16,7 +16,7 @@ T LinkedList<T>::Get(int index) const {
         throw IndexOutOfRangeException("LinkedList", "Get", "Index < 0");
     }
 
-    Node* current = head_;
+    Node_* current = head_;
     for (int i = 0; i < index && current != nullptr; ++i) {
         current = current->next;
     }

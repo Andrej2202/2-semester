@@ -33,6 +33,9 @@ Sequence<T>* ArraySequence<T>::Prepend(T item){
 template<class T>
 void ArraySequence<T>::InsertAtInternal(T item, int index){
     int temp = data_->GetSize();
+    if (index < 0 || index >= temp) {
+        throw IndexOutOfRangeException("ArraySequence", "InsertAtInternal", "index > size.");
+    }
     data_->Resize(temp + 1);
     for(int i = temp; i > index; i--){
         data_->Set(i, data_->Get(i-1));
@@ -66,7 +69,7 @@ void ArraySequence<T>::ConcatInternal(Sequence<T>* smth) {
 
 template<class T>
 Sequence<T>* ArraySequence<T>::Concat(Sequence<T>* smth){
-    Sequence<T>* target = this->Instance();
+    Sequence<T>* target = this->Clone();
     static_cast<ArraySequence<T>*>(target)->ConcatInternal(smth);
     return target;
 }

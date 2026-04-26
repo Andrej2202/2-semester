@@ -5,7 +5,7 @@ using std::cin, std::cout;
 
 
 int main(){
-    Sequence<int> first;
+    //Sequence<int> first;
     //cout << first.GetSize();
     return 0;
 }

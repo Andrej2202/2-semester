@@ -1,3 +1,6 @@
+#include "LinkedList.hpp"
+#include "ArraySequence.hpp"
+
 template<class T>
 ArraySequence<T>::ArraySequence(T* items, int count) {
     if (count < 0) 
@@ -6,7 +9,7 @@ ArraySequence<T>::ArraySequence(T* items, int count) {
 }
 
 template<class T>
-ArraySequence<T>::Arraysequence(const LinkedList <T> & list){
+ArraySequence<T>::ArraySequence(const LinkedList <T> & list){
     int length = list.GetLength();
     data_ = new DynamicArray<T>(length);
     for(auto i = 0; i < length; i++){
@@ -15,6 +18,6 @@ ArraySequence<T>::Arraysequence(const LinkedList <T> & list){
 }
 
 template<class T>
-ArraySequence<T>::Arraysequence(const ArraySequence<T> & array){
-    data_ = new DynamicArray<T>(*other.data);
+ArraySequence<T>::ArraySequence(const ArraySequence<T> & array){
+    data_ = new DynamicArray<T>(*array.data_); 
 }
