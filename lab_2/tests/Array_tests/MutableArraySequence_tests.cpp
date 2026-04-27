@@ -4,7 +4,7 @@
 #include <ArraySequence.hpp>
 #include <MutableArraySequence.hpp>
 
-TEST(MutableArraySequenceTest, AppendPrependInsertAt_ModifyInPlace) {
+TEST(MutableArraySequenceTest, AppendPrependInsertAt) {
     MutableArraySequence<int> seq;
     EXPECT_EQ(seq.GetLength(), 0);
 
@@ -20,7 +20,7 @@ TEST(MutableArraySequenceTest, AppendPrependInsertAt_ModifyInPlace) {
     EXPECT_EQ(seq.Get(3), 20);
 }
 
-TEST(MutableArraySequenceTest, AppendReturnsThis_NoDeleteNeeded) {
+TEST(MutableArraySequenceTest, ReturnsThis) {
     MutableArraySequence<int> seq;
     Sequence<int>* res = seq.Append(42);
     
@@ -28,7 +28,7 @@ TEST(MutableArraySequenceTest, AppendReturnsThis_NoDeleteNeeded) {
     EXPECT_EQ(seq.GetLength(), 1);
 }
 
-TEST(MutableArraySequenceTest, InsertAt_BoundaryAndInvalid) {
+TEST(MutableArraySequenceTest, InsertAt_Invalid) {
     MutableArraySequence<int> seq;
     seq.Append(10);
     seq.Append(20);
@@ -48,7 +48,7 @@ TEST(MutableArraySequenceTest, InsertAt_BoundaryAndInvalid) {
     EXPECT_THROW(seq.InsertAt(10, 100), IndexOutOfRangeException);
 }
 
-TEST(SequenceOpsTest, GetSubsequence_ValidRange_Inclusive) {
+TEST(SequenceOpsTest, GetSubsequence_ValidRange) {
     int arr[] = {1, 2, 3, 4, 5};
     MutableArraySequence<int> seq(arr, 5);
     
@@ -107,13 +107,13 @@ TEST(SequenceOpsTest, Concat_BasicAndEmpty) {
     delete concat;
 }
 
-TEST(SequenceOpsTest, Concat_NullPtrThrows) {
+TEST(SequenceOpsTest, Concat_NullPtr) {
     MutableArraySequence<int> seq;
     seq.Append(1);
     EXPECT_THROW(seq.Concat(nullptr), InvalidArgumentException);
 }
 
-TEST(SequenceExceptionsTest, AllAccessorsThrowOnEmptyOrOutOfRange) {
+TEST(SequenceExceptionsTest, EmptyOrOutOfRange) {
     MutableArraySequence<int> seq;
     seq.Append(42);
     
@@ -126,4 +126,14 @@ TEST(SequenceExceptionsTest, AllAccessorsThrowOnEmptyOrOutOfRange) {
     EXPECT_THROW(empty->GetLast(), IndexOutOfRangeException);
     EXPECT_THROW(empty->Get(0), IndexOutOfRangeException);
     delete empty;
+}
+
+
+TEST(MutableArraySequenceTemplates, PointSequence) {
+    struct Point { int x, y; };
+    Point raw[] = {{1, 2}, {3, 4}};
+    MutableArraySequence<Point> s1(raw, 2);
+    
+    EXPECT_EQ(s1.Get(0).x, 1);
+    EXPECT_EQ(s1.Get(1).y, 4);
 }

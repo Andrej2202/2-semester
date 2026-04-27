@@ -20,7 +20,7 @@ TEST(LinkedListConstructors, EmptyList) {
     EXPECT_THROW(list.GetLast(), IndexOutOfRangeException);
 }
 
-TEST(LinkedListConstructors, CopyConstructor_DeepCopy) {
+TEST(LinkedListConstructors, CopyConstructor) {
     int arr[] = {1, 2, 3};
     LinkedList<int> original(arr, 3);
     LinkedList<int> copy(original);
@@ -30,7 +30,7 @@ TEST(LinkedListConstructors, CopyConstructor_DeepCopy) {
     EXPECT_EQ(copy.Get(2), 3);
 }
 
-TEST(LinkedListAccessors, GetFirst_GetLast_GetValid) {
+TEST(LinkedListAccessors, GetFirst_GetLast_Get_Valid) {
     LinkedList<int> list;
     list.Prepend(20); list.Prepend(10); list.Append(30);
     
@@ -40,7 +40,7 @@ TEST(LinkedListAccessors, GetFirst_GetLast_GetValid) {
     EXPECT_EQ(list.Get(1), 20);
 }
 
-TEST(LinkedListAccessors, Get_InvalidIndices_Throw) {
+TEST(LinkedListAccessors, Get_Invalid) {
     int arr[] = {1, 2};
     LinkedList<int> list(arr, 2);
     
@@ -49,7 +49,7 @@ TEST(LinkedListAccessors, Get_InvalidIndices_Throw) {
     EXPECT_THROW(list.Get(100), IndexOutOfRangeException);
 }
 
-TEST(LinkedListMutators, AppendAndPrepend_Order) {
+TEST(LinkedListMutators, AppendAndPrepend) {
     LinkedList<int> list;
     list.Append(1);
     list.Append(2);
@@ -61,9 +61,10 @@ TEST(LinkedListMutators, AppendAndPrepend_Order) {
     EXPECT_EQ(list.Get(2), 2);
 }
 
-TEST(LinkedListMutators, InsertAt_ValidIndices) {
+TEST(LinkedListMutators, InsertAt_Valid) {
     LinkedList<int> list;
-    list.Append(10); list.Append(30);
+    list.Append(10); 
+    list.Append(30);
     
     EXPECT_NO_THROW(list.InsertAt(15, 1));
     EXPECT_EQ(list.GetLength(), 3);
@@ -72,7 +73,7 @@ TEST(LinkedListMutators, InsertAt_ValidIndices) {
     EXPECT_EQ(list.Get(2), 30);
 }
 
-TEST(LinkedListMutators, InsertAt_InvalidThrows) {
+TEST(LinkedListMutators, InsertAt_Invalid) {
     LinkedList<int> list;
     list.Append(1); list.Append(2);
     
@@ -81,7 +82,7 @@ TEST(LinkedListMutators, InsertAt_InvalidThrows) {
     EXPECT_THROW(list.InsertAt(99, 5), IndexOutOfRangeException);
 }
 
-TEST(LinkedListOperations, GetSubList_ValidRange) {
+TEST(LinkedListOperations, GetSubList_Valid) {
     int arr[] = {1, 2, 3, 4, 5};
     LinkedList<int> list(arr, 5);
     
@@ -95,7 +96,7 @@ TEST(LinkedListOperations, GetSubList_ValidRange) {
     delete sub;
 }
 
-TEST(LinkedListOperations, GetSubList_BoundaryAndSingle) {
+TEST(LinkedListOperations, GetSubList_Boundary) {
     LinkedList<int> list;
     list.Append(10); list.Append(20); list.Append(30);
     
@@ -109,7 +110,7 @@ TEST(LinkedListOperations, GetSubList_BoundaryAndSingle) {
     delete single;
 }
 
-TEST(LinkedListOperations, GetSubList_InvalidThrows) {
+TEST(LinkedListOperations, GetSubList_Invalid) {
     int arr[] = {1, 2, 3};
     LinkedList<int> list(arr, 3);
     
@@ -141,7 +142,7 @@ TEST(LinkedListOperations, Concat_BasicAndEmpty) {
     delete concat;
 }
 
-TEST(LinkedListOperations, Concat_OriginalsIntact) {
+TEST(LinkedListOperations, Concat_Original) {
     int a[] = {10, 20};
     LinkedList<int> list(a, 2);
     
@@ -151,7 +152,7 @@ TEST(LinkedListOperations, Concat_OriginalsIntact) {
     delete res;
 }
 
-TEST(LinkedListMemory, DeepCopyIndependence) {
+TEST(LinkedListMemory, DeepCopy) {
     int arr[] = {1, 2, 3};
     LinkedList<int> original(arr, 3);
     LinkedList<int> copy(original);

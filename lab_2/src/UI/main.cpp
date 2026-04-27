@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
 
     auto layout = new QVBoxLayout(&window);
 
-    auto label = new QLabel("Лабораторная №2 готова к работе", &window);
+    auto label = new QLabel("Лабораторная №2", &window);
     auto runBtn = new QPushButton("Запустить тест", &window);
     auto exitBtn = new QPushButton("Выход", &window);
 

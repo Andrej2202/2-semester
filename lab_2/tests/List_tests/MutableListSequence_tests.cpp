@@ -6,7 +6,7 @@
 #include <MutableListSequence.hpp>
 #include <LinkedList.hpp>
 
-TEST(MutableListSequenceModification, Append_Prepend_ModifyInPlace) {
+TEST(MutableListSequenceModification, Append_Prepend) {
     MutableListSequence<int> seq;
     EXPECT_EQ(seq.GetLength(), 0);
     
@@ -20,7 +20,7 @@ TEST(MutableListSequenceModification, Append_Prepend_ModifyInPlace) {
     EXPECT_EQ(seq.Get(2), 2);
 }
 
-TEST(MutableListSequenceModification, InsertAt_ValidIndices) {
+TEST(MutableListSequenceModification, InsertAt_Valid) {
     MutableListSequence<int> seq;
     seq.Append(10); seq.Append(30);
     
@@ -31,7 +31,7 @@ TEST(MutableListSequenceModification, InsertAt_ValidIndices) {
     EXPECT_EQ(seq.Get(2), 30);
 }
 
-TEST(MutableListSequenceModification, ReturnsThis_NoDeleteNeeded) {
+TEST(MutableListSequenceModification, ReturnsThis) {
     MutableListSequence<int> seq;
     Sequence<int>* resAppend = seq.Append(42);
     Sequence<int>* resPrepend = seq.Prepend(0);
@@ -44,7 +44,7 @@ TEST(MutableListSequenceModification, ReturnsThis_NoDeleteNeeded) {
     EXPECT_EQ(seq.GetLength(), 3);
 }
 
-TEST(MutableListSequenceAccessors, Get_GetFirst_GetLast_Correctness) {
+TEST(MutableListSequenceAccessors, Get_GetFirst_GetLast) {
     int arr[] = {1, 2, 3, 4, 5};
     MutableListSequence<int> seq(arr, 5);
     

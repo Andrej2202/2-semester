@@ -1,3 +1,4 @@
+
 template<class T>
 void ArraySequence<T>::AppendInternal(T item){
     int temp = data_->GetSize();

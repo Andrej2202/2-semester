@@ -6,7 +6,7 @@
 #include <ImmutableListSequence.hpp>
 #include <LinkedList.hpp>
 
-TEST(ImmutableListSequenceOperations, Append_CreatesNewCopy_OriginalIntact) {
+TEST(ImmutableListSequenceOperations, Append) {
     ImmutableListSequence<int> seq;
     Sequence<int>* new_seq = seq.Append(42);
     
@@ -19,7 +19,7 @@ TEST(ImmutableListSequenceOperations, Append_CreatesNewCopy_OriginalIntact) {
     delete new_seq;
 }
 
-TEST(ImmutableListSequenceOperations, Prepend_CreatesNewCopy_OriginalIntact) {
+TEST(ImmutableListSequenceOperations, Prepend) {
     int arr[] = {2, 3};
     ImmutableListSequence<int> seq(arr, 2);
     
@@ -32,7 +32,7 @@ TEST(ImmutableListSequenceOperations, Prepend_CreatesNewCopy_OriginalIntact) {
     delete new_seq;
 }
 
-TEST(ImmutableListSequenceOperations, InsertAt_CreatesNewCopy_OriginalIntact) {
+TEST(ImmutableListSequenceOperations, InsertAt) {
     int arr[] = {10, 30};
     ImmutableListSequence<int> seq(arr, 2);
     
@@ -49,7 +49,7 @@ TEST(ImmutableListSequenceOperations, InsertAt_CreatesNewCopy_OriginalIntact) {
     EXPECT_THROW(seq.InsertAt(99, 2), IndexOutOfRangeException);
 }
 
-TEST(ImmutableListSequenceOperations, Concat_IndependentCopies) {
+TEST(ImmutableListSequenceOperations, Concat) {
     int a1[] = {1, 2};
     int a2[] = {3, 4, 5};
     ImmutableListSequence<int> seq1(a1, 2);
@@ -81,7 +81,7 @@ TEST(ImmutableListSequenceOperations, Concat_WithEmpty) {
     delete res2;
 }
 
-TEST(ImmutableListSequenceOperations, GetSubsequence_IndependentCopies) {
+TEST(ImmutableListSequenceOperations, GetSubsequence) {
     int arr[] = {10, 20, 30, 40, 50};
     ImmutableListSequence<int> seq(arr, 5);
     
@@ -99,7 +99,7 @@ TEST(ImmutableListSequenceOperations, GetSubsequence_IndependentCopies) {
     EXPECT_THROW(seq.GetSubsequence(3, 1), IndexOutOfRangeException);
 }
 
-TEST(ImmutableListSequenceChaining, OperationsCreateIndependentStates) {
+TEST(ImmutableListSequenceChaining, Operations) {
     ImmutableListSequence<int> seq;
     
     Sequence<int>* s1 = seq.Append(1);
@@ -123,9 +123,10 @@ TEST(ImmutableListSequenceChaining, OperationsCreateIndependentStates) {
     EXPECT_EQ(seq.GetLength(), 0);
 }
 
-TEST(ImmutableListSequenceMemory, DeepCopyIndependence_AfterConcat) {
+TEST(ImmutableListSequenceMemory, DeepCopy) {
     int a[] = {1, 2};
     ImmutableListSequence<int> seq(a, 2);
+    seq.Append(1);
 
     int b[] = {3};
     ImmutableListSequence<int> other(b, 1);
@@ -143,7 +144,7 @@ TEST(ImmutableListSequenceMemory, DeepCopyIndependence_AfterConcat) {
     delete res;
 }
 
-TEST(ImmutableListSequenceExceptions, IndexOutOfRange_StrictContract) {
+TEST(ImmutableListSequenceExceptions, IndexOutOfRange) {
     ImmutableListSequence<int> seq;
     seq.Append(1); seq.Append(2);
     
@@ -159,7 +160,7 @@ TEST(ImmutableListSequenceExceptions, IndexOutOfRange_StrictContract) {
     EXPECT_THROW(empty.Get(0), IndexOutOfRangeException);
 }
 
-TEST(ImmutableListSequenceTemplates, StringSequence_Immutability) {
+TEST(ImmutableListSequenceTemplates, StringSequence_Immutable) {
     ImmutableListSequence<std::string> seq;
     Sequence<std::string>* s1 = seq.Append("Alpha");
     Sequence<std::string>* s2 = s1->Append("Beta");
@@ -173,7 +174,7 @@ TEST(ImmutableListSequenceTemplates, StringSequence_Immutability) {
     delete s1; delete s2;
 }
 
-TEST(ImmutableListSequenceTemplates, CustomStruct_Immutability) {
+TEST(ImmutableListSequenceTemplates, CustomStruct_Immutable) {
     struct Point { int x, y; };
     Point arr[] = {{1, 2}, {3, 4}};
     ImmutableListSequence<Point> seq(arr, 2);

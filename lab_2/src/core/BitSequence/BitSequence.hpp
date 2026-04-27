@@ -5,6 +5,7 @@
 #include <DynamcArray.hpp>
 #include <LinkedList.hpp>
 #include <Exceptions.hpp>
+#include <concepts>
 
 template <std::integral T_word = unsigned char>
 class BitSequence : public Sequence<Bit<T_word>> {

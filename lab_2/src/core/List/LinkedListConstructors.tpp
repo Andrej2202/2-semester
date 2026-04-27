@@ -4,7 +4,7 @@ LinkedList<T>::LinkedList(T* items, int count) : head_(nullptr), tail_(nullptr) 
         throw InvalidArgumentException("LinkedList",  "constructor", "size of container is < 0.");
     } 
     if (count > MAX_ARR_SIZE){
-        throw InvalidArgumentException("I'm just a little indi developer, don't push to much elements :(");
+        throw InvalidArgumentException("I'm just a little indian developer, don't push too much elements :(");
     }
     for (int i = 0; i < count; i++){
         Append(items[i]);

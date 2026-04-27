@@ -21,7 +21,7 @@ TEST(ImmutableArraySequenceBasics, ConstructFromArray) {
     EXPECT_NO_THROW(seq.Get(1));
 }
 
-TEST(ImmutableArraySequenceOps, Append_CreatesNewCopy_OriginalIntact) {
+TEST(ImmutableArraySequenceOps, Append) {
     ImmutableArraySequence<int> seq;
     Sequence<int>* new_seq = seq.Append(42);
     
@@ -34,7 +34,7 @@ TEST(ImmutableArraySequenceOps, Append_CreatesNewCopy_OriginalIntact) {
     delete new_seq;
 }
 
-TEST(ImmutableArraySequenceOps, Prepend_CreatesNewCopy_OriginalIntact) {
+TEST(ImmutableArraySequenceOps, Prepend) {
     int arr[] = {2, 3};
     ImmutableArraySequence<int> seq(arr, 2);
     
@@ -47,7 +47,7 @@ TEST(ImmutableArraySequenceOps, Prepend_CreatesNewCopy_OriginalIntact) {
     delete new_seq;
 }
 
-TEST(ImmutableArraySequenceOps, InsertAt_CreatesNewCopy_OriginalIntact) {
+TEST(ImmutableArraySequenceOps, InsertAt) {
     int arr[] = {10, 30};
     ImmutableArraySequence<int> seq(arr, 2);
     
@@ -64,7 +64,7 @@ TEST(ImmutableArraySequenceOps, InsertAt_CreatesNewCopy_OriginalIntact) {
     EXPECT_THROW(seq.InsertAt(99, 2), IndexOutOfRangeException);
 }
 
-TEST(ImmutableArraySequenceOps, Concat_IndependentCopies) {
+TEST(ImmutableArraySequenceOps, Concat) {
     int a1[] = {1, 2};
     int a2[] = {3, 4, 5};
     ImmutableArraySequence<int> seq1(a1, 2);
@@ -82,7 +82,7 @@ TEST(ImmutableArraySequenceOps, Concat_IndependentCopies) {
     delete concat;
 }
 
-TEST(ImmutableArraySequenceOps, GetSubsequence_IndependentCopies) {
+TEST(ImmutableArraySequenceOps, GetSubsequence) {
     int arr[] = {10, 20, 30, 40, 50};
     ImmutableArraySequence<int> seq(arr, 5);
     
@@ -122,7 +122,7 @@ TEST(ImmutableArraySequenceMemory, DeepCopyIndependence) {
     EXPECT_EQ(original.GetLength(), 0);
 }
 
-TEST(ImmutableArraySequenceOps, ChainingOperations_CreatesIndependentStates) {
+TEST(ImmutableArraySequenceOps, ChainingOperations) {
     ImmutableArraySequence<int> seq;
     
     Sequence<int>* s1 = seq.Append(1);
@@ -138,10 +138,12 @@ TEST(ImmutableArraySequenceOps, ChainingOperations_CreatesIndependentStates) {
     EXPECT_EQ(s3->Get(1), 5);
     EXPECT_EQ(s3->Get(2), 1);
     
-    delete s1; delete s2; delete s3;
+    delete s1; 
+    delete s2; 
+    delete s3;
 }
 
-TEST(ImmutableArraySequenceTemplates, StringSequence_Immutability) {
+TEST(ImmutableArraySequenceTemplates, StringSequence) {
     ImmutableArraySequence<std::string> seq;
     Sequence<std::string>* s1 = seq.Append("Alpha");
     Sequence<std::string>* s2 = s1->Append("Beta");
@@ -151,5 +153,15 @@ TEST(ImmutableArraySequenceTemplates, StringSequence_Immutability) {
     EXPECT_EQ(s2->Get(1), "Beta");
     EXPECT_EQ(s1->Get(0), "Alpha");
     
-    delete s1; delete s2;
+    delete s1; 
+    delete s2;
+}
+
+TEST(ImmutableArraySequenceTemplates, PointSequence) {
+    struct Point { int x, y; };
+    Point raw[] = {{1, 2}, {3, 4}};
+    ImmutableArraySequence<Point> s1(raw, 2);
+    
+    EXPECT_EQ(s1.Get(0).x, 1);
+    EXPECT_EQ(s1.Get(1).y, 4);
 }

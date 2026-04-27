@@ -68,7 +68,7 @@ TEST(ImmutableListSequenceConstructors, FromLinkedList) {
     EXPECT_EQ(seq.GetLast(), 4);
 }
 
-TEST(ListSequenceConstructors, DeepCopyIndependence_FromLinkedList) {
+TEST(ListSequenceConstructors, DeepCopy_FromLinkedList) {
     int arr[] = {1, 2, 3};
     LinkedList<int> source(arr, 3);
     
@@ -84,7 +84,7 @@ TEST(ListSequenceConstructors, DeepCopyIndependence_FromLinkedList) {
     EXPECT_EQ(seq2.GetLast(), 3);
 }
 
-TEST(ListSequenceConstructors, Templates_WorkWithStrings) {
+TEST(ListSequenceConstructors, Templates_Strings) {
     std::string arr[] = {"Alpha", "Beta", "Gamma"};
     
     MutableListSequence<std::string> m_seq(arr, 3);
@@ -98,7 +98,7 @@ TEST(ListSequenceConstructors, Templates_WorkWithStrings) {
     EXPECT_EQ(i_seq.GetLast(), "Gamma");
 }
 
-TEST(ListSequenceConstructors, Templates_WorkWithCustomStruct) {
+TEST(ListSequenceConstructors, Templates_CustomStruct) {
     struct Point { int x, y; };
     Point arr[] = {{1, 2}, {3, 4}};
     

@@ -41,7 +41,7 @@ TEST(DynamicArrayConstructors, ZeroSizeArray) {
     EXPECT_THROW(empty.Get(0), IndexOutOfRangeException);
 }
 
-TEST(DynamicArrayAccess, GetValidAndBoundaryIndices) {
+TEST(DynamicArrayAccess, Get_Valid) {
     int raw[] = {5, 10, 15};
     DynamicArray<int> arr(raw, 3);
     
@@ -51,7 +51,7 @@ TEST(DynamicArrayAccess, GetValidAndBoundaryIndices) {
     EXPECT_EQ(arr.GetSize(), 3);
 }
 
-TEST(DynamicArrayAccess, GetThrowsOnInvalidIndices) {
+TEST(DynamicArrayAccess, Get_Throws) {
     DynamicArray<int> arr(3);
     
     EXPECT_THROW(arr.Get(-1), IndexOutOfRangeException);
@@ -59,7 +59,7 @@ TEST(DynamicArrayAccess, GetThrowsOnInvalidIndices) {
     EXPECT_THROW(arr.Get(100), IndexOutOfRangeException);
 }
 
-TEST(DynamicArrayModification, SetValidIndices) {
+TEST(DynamicArrayModification, Set_Valid) {
     DynamicArray<int> arr(4);
     
     arr.Set(0, 100);
@@ -71,13 +71,13 @@ TEST(DynamicArrayModification, SetValidIndices) {
     EXPECT_EQ(arr.Get(3), 400);
 }
 
-TEST(DynamicArrayModification, SetThrowsOnInvalidIndices) {
+TEST(DynamicArrayModification, Set_Throws) {
     DynamicArray<int> arr(2);
     EXPECT_THROW(arr.Set(-1, 10), IndexOutOfRangeException);
     EXPECT_THROW(arr.Set(2, 10), IndexOutOfRangeException);
 }
 
-TEST(DynamicArrayResize, IncreaseSize_PreservesData) {
+TEST(DynamicArrayResize, IncreaseSize) {
     int raw[] = {1, 2, 3};
     DynamicArray<int> arr(raw, 3);
     
@@ -89,7 +89,7 @@ TEST(DynamicArrayResize, IncreaseSize_PreservesData) {
     EXPECT_EQ(arr.Get(5), 0); 
 }
 
-TEST(DynamicArrayResize, DecreaseSize_TruncatesCorrectly) {
+TEST(DynamicArrayResize, DecreaseSize) {
     int raw[] = {10, 20, 30, 40, 50};
     DynamicArray<int> arr(raw, 5);
     
@@ -111,7 +111,7 @@ TEST(DynamicArrayResize, ResizeToZero) {
     EXPECT_THROW(arr.Get(0), IndexOutOfRangeException);
 }
 
-TEST(DynamicArrayResize, ResizeToSameSize) {
+TEST(DynamicArrayResize, ResizeToSame) {
     int raw[] = {7, 8, 9};
     DynamicArray<int> arr(raw, 3);
     
@@ -120,7 +120,7 @@ TEST(DynamicArrayResize, ResizeToSameSize) {
     EXPECT_EQ(arr.Get(1), 8);
 }
 
-TEST(DynamicArrayResize, NegativeSizeThrows) {
+TEST(DynamicArrayResize, Resize_Throws) {
     DynamicArray<int> arr(5);
     EXPECT_THROW(arr.Resize(-1), InvalidArgumentException);
 }
