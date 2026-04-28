@@ -24,7 +24,7 @@ public:
     InvalidArgumentException() : message_("Invalid argument") {}
     InvalidArgumentException(const std::string& msg) : message_(msg) {}
     InvalidArgumentException(const std::string& container, const std::string& method, const std::string& issue) 
-        : message_("Invalid argument in " + container + " in methode " + method + " \nissue: " + issue) {}
+        : message_(std::format("Invalid argument in {} in method {} \nissue: {}", container, method, issue)) {}
     InvalidArgumentException(const char* msg) : message_(msg ? msg : "Unknown invalid argument") {}
 
     const char* what() const noexcept override {return message_.c_str();}

@@ -1,23 +1,22 @@
 #pragma once
 #include <Exceptions.hpp>
-#include <Config.hpp>
 
 template <class T>
 class DynamicArray{
 private:
     T* data_;
-    int size_;
+    size_t size_;
 public:
-    DynamicArray(int size);
-    DynamicArray(T* items, int count);
+    DynamicArray(size_t size);
+    DynamicArray(T* items, size_t count);
     DynamicArray(const DynamicArray<T>& other);
     ~DynamicArray(){delete[] data_;}
     
-    T Get(int index);
-    int GetSize(){return size_;}
+    T Get(size_t index);
+    size_t GetSize(){return size_;}
 
-    void Set(int index, T value); 
-    void Resize(int newSize);
+    void Set(size_t index, T value); 
+    void Resize(size_t newSize);
 };
 
 #include "DynamicArray.tpp"

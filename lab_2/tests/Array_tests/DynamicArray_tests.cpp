@@ -122,7 +122,7 @@ TEST(DynamicArrayResize, ResizeToSame) {
 
 TEST(DynamicArrayResize, Resize_Throws) {
     DynamicArray<int> arr(5);
-    EXPECT_THROW(arr.Resize(-1), InvalidArgumentException);
+    EXPECT_THROW(arr.Resize(-1), std::bad_array_new_length);
 }
 
 TEST(DynamicArrayMemory, CopyIndependence) {

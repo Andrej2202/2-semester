@@ -1,10 +1,11 @@
 #pragma once
+#include <concepts>
 
 template <std::integral T_word = unsigned char>
 class MutableBitSequence : public BitSequence<T_word> {
 public:
     MutableBitSequence() : BitSequence<T_word>() {}
-    MutableBitSequence(Bit<T_word>* items, int count) : BitSequence<T_word>(items, count) {}
+    MutableBitSequence(Bit<T_word>* items, size_t count) : BitSequence<T_word>(items, count) {}
     MutableBitSequence(const BitSequence<T_word>& other) : BitSequence<T_word>(other) {}
     MutableBitSequence(const LinkedList<Bit<T_word>>& list) : BitSequence<T_word>(list) {}
 

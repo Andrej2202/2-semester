@@ -5,12 +5,12 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOMOC ON) # (Meta-Object Compiler) для .cpp/.hpp (тут очев, но типо для однообразного стиля надо чет в скобки написать)
+set(CMAKE_AUTOUIC ON) # (User Interface Compiler) для .ui (XML-файлы Qt Designer)
+set(CMAKE_AUTORCC ON) # (Resource Compiler) для .qrc(картинки, переводы и прочие приколямбы)
 
-# set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
-set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
+set(BUILD_GMOCK OFF CACHE BOOL "" FORCE) # Отключает сборку библиотеки Google Mock (у меня мок тестов нет, он мне не сдался)
+set(INSTALL_GTEST OFF CACHE BOOL "" FORCE) # Отключает правила установки (install()) для Google Test.
 add_subdirectory(googletest)
 
 set(CORE_DIR  ${CMAKE_SOURCE_DIR}/src/core)
@@ -39,3 +39,5 @@ target_link_libraries(Lab2Tests PRIVATE gtest gtest_main)
 
 enable_testing()
 add_test(NAME LabTests COMMAND Lab2Tests)
+
+# D:\2_semester\lab_2>.\build\Lab2Tests.exe --gtest_color=yes

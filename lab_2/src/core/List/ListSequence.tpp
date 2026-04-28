@@ -1,3 +1,27 @@
+#pragma region "GetMethode"
+template<class T>
+T ListSequence<T>::GetFirst() const { return data_->GetFirst(); }
+template<class T>
+T ListSequence<T>::GetLast() const { return data_->GetLast(); }
+template<class T>
+T ListSequence<T>::Get(size_t index) const { return data_->Get(index); }
+template<class T>
+size_t ListSequence<T>::GetLength() const { return data_->GetLength(); }
+
+template<class T>
+Sequence<T>* ListSequence<T>::GetSubsequence(size_t startIndex, size_t endIndex) const {
+    if (startIndex > endIndex)
+        throw IndexOutOfRangeException("ListSequence", "GetSubsequence", "Invalid subsequence range.");
+    LinkedList<T>* subList = data_->GetSubList(startIndex, endIndex);
+    Sequence<T>* result = this->Clone();
+    delete static_cast<ListSequence<T>*>(result)->data_;
+    static_cast<ListSequence<T>*>(result)->data_ = subList;
+    
+    return result;
+}
+#pragma endregion
+
+#pragma region "InsertMethode"
 template<class T>
 void ListSequence<T>::AppendInternal(T item) {
     data_->Append(item);
@@ -23,12 +47,12 @@ Sequence<T>* ListSequence<T>::Prepend(T item){
 }
 
 template<class T>
-void ListSequence<T>::InsertAtInternal(T item, int index) {
+void ListSequence<T>::InsertAtInternal(T item, size_t index) {
     data_->InsertAt(item, index);
 }
 
 template<class T>
-Sequence<T>* ListSequence<T>::InsertAt(T item, int index){
+Sequence<T>* ListSequence<T>::InsertAt(T item, size_t index){
     Sequence<T>* target = this->Instance();
     static_cast<ListSequence<T>*>(target)->InsertAtInternal(item, index);
     return target;
@@ -37,8 +61,8 @@ Sequence<T>* ListSequence<T>::InsertAt(T item, int index){
 template<class T>
 void ListSequence<T>::ConcatInternal(Sequence<T>* smth) {
     if (smth == nullptr) return;
-    int len = smth->GetLength();
-    for (int i = 0; i < len; ++i) {
+    size_t len = smth->GetLength();
+    for (size_t i = 0; i < len; ++i) {
         data_->Append(smth->Get(i));
     }
 }
@@ -49,3 +73,4 @@ Sequence<T>* ListSequence<T>::Concat(Sequence<T>* smth){
     static_cast<ListSequence<T>*>(target)->ConcatInternal(smth);
     return target;
 }
+#pragma endregion

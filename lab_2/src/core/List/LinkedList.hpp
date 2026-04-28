@@ -1,6 +1,5 @@
 #pragma once
 #include <Exceptions.hpp>
-#include <Config.hpp>
 
 template <class T>
 class LinkedList {
@@ -26,24 +25,22 @@ private:
 
 public:
     LinkedList() : head_(nullptr), tail_(nullptr) {}
-    explicit LinkedList(T* items, int count);
+    explicit LinkedList(T* items, size_t count);
     explicit LinkedList(const LinkedList<T>& other);
     ~LinkedList() {clear();}
 
     
     T GetFirst() const;
     T GetLast() const;
-    T Get(int index) const;
-    int GetLength() const;
-    LinkedList<T>* GetSubList(int startIndex, int endIndex) const;
+    T Get(size_t index) const;
+    size_t GetLength() const;
+    LinkedList<T>* GetSubList(size_t startIndex, size_t endIndex) const;
 
     
     void Append(T item);
     void Prepend(T item);
-    void InsertAt(T item, int index);
+    void InsertAt(T item, size_t index);
     LinkedList<T>* Concat(LinkedList<T>* list);
 };
 
-#include "LinkedListConstructors.tpp"
-#include "LinkedListGetMethodes.tpp"
-#include "LinkedListInsertMethodes.tpp"
+#include "LinkedList.tpp"

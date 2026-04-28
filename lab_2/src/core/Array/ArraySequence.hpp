@@ -11,7 +11,7 @@ class ArraySequence : public Sequence<T> {
 private:
     void AppendInternal(T item);
     void PrependInternal(T item);
-    void InsertAtInternal(T item, int index);
+    void InsertAtInternal(T item, size_t index);
     void ConcatInternal(Sequence<T>* smth);
 
 protected:
@@ -22,27 +22,25 @@ protected:
 
 public:
     ArraySequence() : data_(new DynamicArray<T>(0)) {}
-    explicit ArraySequence(T* items, int count);
+    explicit ArraySequence(T* items, size_t count);
     explicit ArraySequence(const LinkedList <T> & list);
     explicit ArraySequence(const ArraySequence<T> & array);
     virtual ~ArraySequence(){delete data_;}
 
     T GetFirst() const override { return data_->Get(0); }
     T GetLast() const override { return data_->Get(data_->GetSize() - 1); }
-    T Get(int index) const override { return data_->Get(index); }
-    int GetLength() const override { return data_->GetSize(); }
-    Sequence<T>* GetSubsequence(int startIndex, int endIndex) const override;
+    T Get(size_t index) const override { return data_->Get(index); }
+    size_t GetLength() const override { return data_->GetSize(); }
+    Sequence<T>* GetSubsequence(size_t startIndex, size_t endIndex) const override;
 
 
     //нуно Mutable/imutable
     Sequence<T>* Append(T item) override;
     Sequence<T>* Prepend(T item) override;
-    Sequence<T>* InsertAt(T item, int index) override;
+    Sequence<T>* InsertAt(T item, size_t index) override;
     Sequence<T>* Concat(Sequence<T>* list) override;
 };
 
 
-#include "ArraySequenceConstructors.tpp"
-#include "ArraySequenceGetMethodes.tpp"
-#include "ArraySequenceInsertMethodes.tpp"
+#include "ArraySequence.tpp"
 

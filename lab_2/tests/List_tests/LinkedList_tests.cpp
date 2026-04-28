@@ -19,6 +19,12 @@ TEST(LinkedListConstructors, EmptyList) {
     EXPECT_THROW(list.GetFirst(), IndexOutOfRangeException);
     EXPECT_THROW(list.GetLast(), IndexOutOfRangeException);
 }
+/*
+TEST(LinkedListConstructors, FromRawArrayInvalid) {
+    int arr[] = {10, 20, 30, 40};
+    EXPECT_THROW((LinkedList<int>{arr, -1}), std::invalid_argument);
+}
+*/
 
 TEST(LinkedListConstructors, CopyConstructor) {
     int arr[] = {1, 2, 3};
