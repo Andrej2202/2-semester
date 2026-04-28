@@ -2,6 +2,7 @@
 #include <string>
 #include <Exceptions.hpp>
 #include <ArraySequence.hpp>
+#include <SuperUnicPointer.hpp>
 #include <MutableArraySequence.hpp>
 
 TEST(MutableArraySequenceTest, AppendPrependInsertAt) {
@@ -64,16 +65,16 @@ TEST(SequenceOpsTest, GetSubsequence_ValidRange) {
 
 TEST(SequenceOpsTest, GetSubsequence_BoundaryAndSingleElement) {
     MutableArraySequence<int> seq;
-    seq.Append(10); seq.Append(20); seq.Append(30);
+    seq.Append(10); 
+    seq.Append(20); 
+    seq.Append(30);
     
-    Sequence<int>* sub = seq.GetSubsequence(0, 0);
+    SuperUnicPointer<Sequence<int>> sub(seq.GetSubsequence(0, 0));
     EXPECT_EQ(sub->GetLength(), 1);
     EXPECT_EQ(sub->Get(0), 10);
-    delete sub;
     
-    sub = seq.GetSubsequence(2, 2);
+    sub = SuperUnicPointer<Sequence<int>>(seq.GetSubsequence(2, 2));
     EXPECT_EQ(sub->Get(0), 30);
-    delete sub;
 }
 
 TEST(SequenceOpsTest, GetSubsequence_InvalidThrows) {
