@@ -121,4 +121,3 @@ Sequence<T>* ArraySequence<T>::Concat(Sequence<T>* smth){
 }
 
 #pragma endregion
-

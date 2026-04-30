@@ -34,10 +34,10 @@ TEST(MutableArraySequenceTest, InsertAt_Invalid) {
     seq.Append(10);
     seq.Append(20);
 
-    EXPECT_NO_THROW(seq.InsertAt(99, 0));
+    EXPECT_NO_THROW(seq.InsertAt(99, 1));
     EXPECT_EQ(seq.GetLength(), 3);
-    EXPECT_EQ(seq.Get(0), 99);
-    EXPECT_EQ(seq.Get(1), 10);
+    EXPECT_EQ(seq.Get(0), 10);
+    EXPECT_EQ(seq.Get(1), 99);
 
     EXPECT_NO_THROW(seq.InsertAt(55, 2));
     EXPECT_EQ(seq.GetLength(), 4);
@@ -68,7 +68,7 @@ TEST(SequenceOpsTest, GetSubsequence_BoundaryAndSingleElement) {
     seq.Append(10); 
     seq.Append(20); 
     seq.Append(30);
-    
+    //{10, 20, 30} -> seq.GetSubsequence(0, 0) -> expected: 10
     SuperUnicPointer<Sequence<int>> sub(seq.GetSubsequence(0, 0));
     EXPECT_EQ(sub->GetLength(), 1);
     EXPECT_EQ(sub->Get(0), 10);

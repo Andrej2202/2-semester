@@ -6,7 +6,7 @@
 #include <MutableListSequence.hpp>
 
 QT_BEGIN_NAMESPACE
-class QLineEdit;      // ← Добавили
+class QLineEdit;
 class QPushButton;
 class QListWidget;
 class QLabel;
@@ -20,7 +20,7 @@ public:
     explicit ListSequenceWidget(QWidget *parent = nullptr);
 
 private slots:
-    void onEnterPressed();   // ← единственный слот для ввода
+    void onEnterPressed();
     void onClearList(int var);
     void Concatination();
 
@@ -31,7 +31,6 @@ private:
     QString printAll(int var) const;
     void showListState();
 
-    // ... старые виджеты ...
     QLineEdit*   inputEdit;
     QComboBox*   opSelector;
     QPushButton* btnClear1;

@@ -17,13 +17,11 @@ void ListSequenceWidget::setupUI() {
     FirstList = std::make_unique<MutableListSequence<int>>();
     SecondList = std::make_unique<MutableListSequence<int>>();
 
-    // 🔹 Поле ввода
     inputEdit = new QLineEdit(this);
     inputEdit->setPlaceholderText("Введите данные (число или индекс,значение)");
     inputEdit->setClearButtonEnabled(true);
     mainLayout->addWidget(inputEdit);
 
-    // 🔹 Селектор операции
     opSelector = new QComboBox(this);
     opSelector->addItems({
         "1. Добавить в конец 1 листа(append)",
@@ -52,8 +50,6 @@ void ListSequenceWidget::setupUI() {
     mainLayout->addWidget(statusLabel);
 
 
-
-    // 🔹 Подключения
     connect(btnClear1, &QPushButton::clicked, this, [this](){
         onClearList(1);
     });
@@ -75,14 +71,14 @@ void ListSequenceWidget::onEnterPressed() {
         case 0: { // APPEND firrst
             if (input.isEmpty()) { updateStatus("Введите число"); return; }
             int val = input.toInt(&ok);
-            if (!ok) { updateStatus("Ожидается целое число"); return; }
+            if (!ok) { updateStatus("Ожидается целое число(адекватных размеров)"); return; }
             FirstList->Append(val);
             break;
         }
         case 1: { // PREPEND firrst
             if (input.isEmpty()) { updateStatus("Введите число"); return; }
             int val = input.toInt(&ok);
-            if (!ok) { updateStatus("Ожидается целое число"); return; }
+            if (!ok) { updateStatus("Ожидается целое число(адекватных размеров)"); return; }
             FirstList->Prepend(val);
             break;
         }
@@ -100,21 +96,21 @@ void ListSequenceWidget::onEnterPressed() {
                 updateStatus(QString("Индекс вне диапазона (0..%1)").arg(FirstList->GetLength()));
                 return;
             }
-            FirstList->InsertAt(idx, val);
+            FirstList->InsertAt(val, idx);
             break;
         }
 
         case 3: { // APPEND seq
             if (input.isEmpty()) { updateStatus("Введите число"); return; }
             int val = input.toInt(&ok);
-            if (!ok) { updateStatus("Ожидается целое число"); return; }
+            if (!ok) { updateStatus("Ожидается целое число(адекватных размеров)"); return; }
             SecondList->Append(val);
             break;
         }
         case 4: { // PREPEND seq
             if (input.isEmpty()) { updateStatus("Введите число"); return; }
             int val = input.toInt(&ok);
-            if (!ok) { updateStatus("Ожидается целое число"); return; }
+            if (!ok) { updateStatus("Ожидается целое число(адекватных размеров)"); return; }
             SecondList->Prepend(val);
             break;
         }
@@ -132,7 +128,7 @@ void ListSequenceWidget::onEnterPressed() {
                 updateStatus(QString("Индекс вне диапазона (0..%1)").arg(SecondList->GetLength()));
                 return;
             }
-            SecondList->InsertAt(idx, val);
+            SecondList->InsertAt(val, idx);
             break;
         }
     }
@@ -170,13 +166,11 @@ QString ListSequenceWidget::printAll(int var) const{
 void ListSequenceWidget::onClearList(int var) {
     if(var == 1){
         FirstList = std::make_unique<MutableListSequence<int>>();
-        updateStatus("Список очищен");
     }
     else{
         SecondList = std::make_unique<MutableListSequence<int>>();
-        updateStatus("Список очищен");
     }
-    
+    showListState();
 }
 
 void ListSequenceWidget::Concatination() {
