@@ -6,8 +6,8 @@ class LinkedList {
 private:
     struct Node_ {
         T data;
-        Node_* next;
-        Node_(T val) : data(val), next(nullptr) {}
+        Node_* next = nullptr;
+        Node_(T val) : data(val) {}
     };
 
     Node_* head_;

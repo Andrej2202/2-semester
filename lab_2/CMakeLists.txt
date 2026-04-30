@@ -4,7 +4,7 @@ project(Lab2_DataStructures LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
 set(CMAKE_AUTOMOC ON) # (Meta-Object Compiler) для .cpp/.hpp (тут очев, но типо для однообразного стиля надо чет в скобки написать)
 set(CMAKE_AUTOUIC ON) # (User Interface Compiler) для .ui (XML-файлы Qt Designer)
 set(CMAKE_AUTORCC ON) # (Resource Compiler) для .qrc(картинки, переводы и прочие приколямбы)
@@ -14,14 +14,49 @@ set(INSTALL_GTEST OFF CACHE BOOL "" FORCE) # Отключает правила �
 add_subdirectory(googletest)
 
 set(CORE_DIR  ${CMAKE_SOURCE_DIR}/src/core)
+set(UI_DIR    ${CMAKE_SOURCE_DIR}/src/UI)
 set(SEQ_DIR   ${CORE_DIR}/Sequence)
 set(ARRAY_DIR ${CORE_DIR}/Array)
 set(BIT_DIR   ${CORE_DIR}/BitSequence)
 set(LIST_DIR  ${CORE_DIR}/List)
 
-add_executable(Lab2UI src/UI/main.cpp)
-target_include_directories(Lab2UI PRIVATE ${CORE_DIR} ${SEQ_DIR} ${ARRAY_DIR} ${BIT_DIR} ${LIST_DIR})
-target_link_libraries(Lab2UI PRIVATE Qt6::Widgets)
+add_library(core_lib STATIC
+    ${ARRAY_DIR}/DynamicArray.hpp
+    ${LIST_DIR}/LinkedList.hpp
+    ${SEQ_DIR}/Sequence.hpp
+    ${ARRAY_DIR}/ArraySequence.hpp
+    ${LIST_DIR}/ListSequence.hpp
+    ${ARRAY_DIR}/MutableArraySequence.hpp
+    ${ARRAY_DIR}/ImmutableArraySequence.hpp
+    ${LIST_DIR}/MutableListSequence.hpp
+    ${LIST_DIR}/ImmutableListSequence.hpp
+    ${BIT_DIR}/BitWithProxy.hpp
+    ${BIT_DIR}/BitSequence.hpp
+    ${CORE_DIR}/Exceptions.hpp
+)
+
+target_include_directories(core_lib PUBLIC 
+    ${CORE_DIR}
+    ${SEQ_DIR}
+    ${ARRAY_DIR}
+    ${BIT_DIR}
+    ${LIST_DIR}
+)
+add_executable(lab2_gui
+    src/UI/gui_main.cpp
+    src/UI/mainwindow.cpp
+    src/UI/mainscreenwidget.cpp
+    src/UI/arraysequencewidget.cpp
+    src/UI/listsequencewidget.cpp
+)
+target_include_directories(lab2_gui PRIVATE 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/UI
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/core
+)
+target_link_libraries(lab2_gui PRIVATE
+    core_lib 
+    Qt6::Widgets
+)
 
 add_executable(Lab2Tests
     tests/Array_tests/DynamicArray_tests.cpp
@@ -41,3 +76,7 @@ enable_testing()
 add_test(NAME LabTests COMMAND Lab2Tests)
 
 # D:\2_semester\lab_2>.\build\Lab2Tests.exe --gtest_color=yes
+
+# cmake .. -G "MinGW Makefiles" ^
+#   -DCMAKE_PREFIX_PATH="D:/Qt/6.11.0/mingw_64" ^
+#   -DCMAKE_BUILD_TYPE=Debug

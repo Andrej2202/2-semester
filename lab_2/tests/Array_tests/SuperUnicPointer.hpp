@@ -6,27 +6,27 @@ private:
     T* pointer_;
 public:
     SuperUnicPointer(T* pointer) : pointer_(pointer) {}
-    ~SuperUnicPointer() {delete pointer_}
+    ~SuperUnicPointer() {delete pointer_;}
 
     SuperUnicPointer(const SuperUnicPointer&) = delete;
     SuperUnicPointer& operator=(const SuperUnicPointer&) = delete;
 
-    SuperUnicPointer(SuperUnicPointer&& other) : ptr(other.ptr) {
-        other.ptr = nullptr;
+    SuperUnicPointer(SuperUnicPointer&& other) : pointer_(other.pointer_) {
+        other.pointer_ = nullptr;
     }
 
     SuperUnicPointer& operator=(SuperUnicPointer&& other) {
         if (this != &other) {
-            delete ptr;
-            ptr = other.ptr;
-            other.ptr = nullptr;
+            delete pointer_;
+            pointer_ = other.pointer_;
+            other.pointer_ = nullptr;
         }
         return *this;
     }
 
-    T* get() const { return ptr; }
-    T& operator*() const { return *ptr; }
-    T* operator->() const { return ptr; }
+    T* get() const { return pointer_; }
+    T& operator*() const { return *pointer_; }
+    T* operator->() const { return pointer_; }
 
 
-}
+};

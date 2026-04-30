@@ -2,7 +2,7 @@
 #include <string>
 #include <Exceptions.hpp>
 #include <ArraySequence.hpp>
-#include <SuperUnicPointer.hpp>
+#include "SuperUnicPointer.hpp"
 #include <MutableArraySequence.hpp>
 
 TEST(MutableArraySequenceTest, AppendPrependInsertAt) {
