@@ -111,12 +111,12 @@ void LinkedList<T>::Prepend(T item) {
 }
 
 template<class T>
-void LinkedList<T>::InsertAt(T item, size_t index) {
+auto LinkedList<T>::InsertAt(T item, size_t index) -> void {
     if (index < 0)
         throw IndexOutOfRangeException("LinkedList", "InsertAt", "index < 0");
     
     size_t currentLength = GetLength();
-    if (index >= currentLength) 
+    if (index > currentLength) 
         throw IndexOutOfRangeException("LinkedList", "InsertAt", "index > length");
         
     if (index == 0) {
@@ -134,7 +134,7 @@ void LinkedList<T>::InsertAt(T item, size_t index) {
 }
 
 template<class T>
-LinkedList<T>* LinkedList<T>::Concat(LinkedList<T>* list) {
+auto LinkedList<T>::Concat(LinkedList<T>* list) -> LinkedList<T>* {
     if (list == nullptr) 
         return new LinkedList<T>(*this);
     

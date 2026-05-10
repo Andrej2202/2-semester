@@ -25,7 +25,7 @@ public:
     explicit ArraySequence(T* items, size_t count);
     explicit ArraySequence(const LinkedList <T> & list);
     explicit ArraySequence(const ArraySequence<T> & array);
-    virtual ~ArraySequence(){delete data_;}
+    ~ArraySequence(){delete data_;}
 
     T GetFirst() const override { return data_->Get(0); }
     T GetLast() const override { return data_->Get(data_->GetSize() - 1); }

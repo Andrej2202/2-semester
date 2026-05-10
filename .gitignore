@@ -7,3 +7,4 @@ build/
 googletest/
 checkbox.md
 gt_help.md
+test_main.cpp

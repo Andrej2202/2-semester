@@ -100,12 +100,12 @@ TEST(ListSequenceConstructors, Templates_Strings) {
 
 TEST(ListSequenceConstructors, Templates_CustomStruct) {
     struct Point { int x, y; };
-    Point arr[] = {{1, 2}, {3, 4}};
+    Point arr[] = { {0, 20}, {30, 40}, {50, 60} };
     
-    MutableListSequence<Point> m_seq(arr, 2);
-    EXPECT_EQ(m_seq.Get(0).x, 1);
-    EXPECT_EQ(m_seq.GetLast().y, 4);
+    MutableListSequence<Point> m_seq(arr, 3);
+    EXPECT_EQ(m_seq.Get(0).x, 10);
+    EXPECT_EQ(m_seq.GetLast().y, 60);
     
-    ImmutableListSequence<Point> i_seq(arr, 2);
-    EXPECT_EQ(i_seq.GetLength(), 2);
+    ImmutableListSequence<Point> i_seq(arr, 3);
+    EXPECT_EQ(i_seq.GetLength(), 3);
 }

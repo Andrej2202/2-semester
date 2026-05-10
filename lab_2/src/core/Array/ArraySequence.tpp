@@ -79,7 +79,7 @@ Sequence<T>* ArraySequence<T>::Prepend(T item){
 template<class T>
 void ArraySequence<T>::InsertAtInternal(T item, size_t index){
     size_t temp = data_->GetSize();
-    if (index >= temp) {
+    if (index > temp) {
         throw IndexOutOfRangeException("ArraySequence", "InsertAtInternal", "index > size.");
     }
     data_->Resize(temp + 1);

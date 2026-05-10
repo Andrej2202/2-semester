@@ -6,8 +6,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 COMPONENTS Widgets REQUIRED)
 set(CMAKE_AUTOMOC ON) # (Meta-Object Compiler) для .cpp/.hpp (тут очев, но типо для однообразного стиля надо чет в скобки написать)
-set(CMAKE_AUTOUIC ON) # (User Interface Compiler) для .ui (XML-файлы Qt Designer)
-set(CMAKE_AUTORCC ON) # (Resource Compiler) для .qrc(картинки, переводы и прочие приколямбы)
+set(CMAKE_AUTOUIC ON) # Преобразует XML-файлы Qt Designer (.ui) в C++-заголовки, которые подключаются в коде.
+set(CMAKE_AUTORCC ON) # Компилирует файлы ресурсов (.qrc), упаковывая изображения, иконки, шрифты и т.д. прямо в исполняемый файл.
+
 
 set(BUILD_GMOCK OFF CACHE BOOL "" FORCE) # Отключает сборку библиотеки Google Mock (у меня мок тестов нет, он мне не сдался)
 set(INSTALL_GTEST OFF CACHE BOOL "" FORCE) # Отключает правила установки (install()) для Google Test.
@@ -20,7 +21,7 @@ set(ARRAY_DIR ${CORE_DIR}/Array)
 set(BIT_DIR   ${CORE_DIR}/BitSequence)
 set(LIST_DIR  ${CORE_DIR}/List)
 
-add_library(core_lib STATIC
+add_library(core_lib STATIC #виды связыванмя
     ${ARRAY_DIR}/DynamicArray.hpp
     ${LIST_DIR}/LinkedList.hpp
     ${SEQ_DIR}/Sequence.hpp
@@ -74,6 +75,10 @@ target_link_libraries(Lab2Tests PRIVATE gtest gtest_main)
 
 enable_testing()
 add_test(NAME LabTests COMMAND Lab2Tests)
+
+
+add_executable(TestMain test_main.cpp)
+target_link_libraries(TestMain PRIVATE core_lib)
 
 # D:\2_semester\lab_2>.\build\Lab2Tests.exe --gtest_color=yes
 

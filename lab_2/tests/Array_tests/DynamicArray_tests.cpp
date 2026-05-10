@@ -10,19 +10,31 @@ TEST(DynamicArrayConstructors, FromRawArray) {
     
     EXPECT_EQ(arr.GetSize(), 4);
     for (int i = 0; i < 4; ++i) {
-        EXPECT_EQ(arr.Get(i), raw[i]);
+        EXPECT_EQ(arr.Get(i), raw[i])
+            << "input:" << "int raw[] = {10, 20, 30, 40} -> DynamicArray<int> arr(raw, 4) ->  seq["<<i<<"]"
+            << "\nexpected:" << i;
     }
 }
 
 TEST(DynamicArrayConstructors, FromSize) {
     DynamicArray<int> arr(5);
-    ASSERT_EQ(arr.GetSize(), 5);
-    EXPECT_NO_THROW(arr.Get(0));
-    EXPECT_NO_THROW(arr.Get(4));
+    ASSERT_EQ(arr.GetSize(), 5)
+        << "input:" << "DynamicArray<int> arr(5) -> size"
+        << "\nexpected:" << "5";
+    EXPECT_NO_THROW(arr.Get(0))
+        << "input:" << "DynamicArray<int> arr(5) -> seq[0]"
+        << "\nexpected:" << "no throw";
+    EXPECT_NO_THROW(arr.Get(4))
+        << "input:" << "DynamicArray<int> arr(5) -> seq[4]"
+        << "\nexpected:" << "no throw";
     arr.Set(0, 0);
     arr.Set(4, 0);
-    EXPECT_EQ(arr.Get(0), 0);
-    EXPECT_EQ(arr.Get(4), 0);
+    EXPECT_EQ(arr.Get(0), 0)
+        << "input:" << "DynamicArray<int> arr(5) -> arr.Set(0, 0) -> seq[0]"
+        << "\nexpected:" << "0";
+    EXPECT_EQ(arr.Get(4), 0)
+        << "input:" << "DynamicArray<int> arr(5) -> arr.Set(4, 0) -> seq[4]"
+        << "\nexpected:" << "0";
 }
 
 TEST(DynamicArrayConstructors, CopyConstructor_DeepCopy) {
@@ -30,15 +42,25 @@ TEST(DynamicArrayConstructors, CopyConstructor_DeepCopy) {
     DynamicArray<int> original(raw, 3);
     DynamicArray<int> copy(original);
     
-    EXPECT_EQ(copy.GetSize(), 3);
-    EXPECT_EQ(copy.Get(0), 1);
-    EXPECT_EQ(copy.Get(2), 3);
+    EXPECT_EQ(copy.GetSize(), 3)
+        << "input:" << "int raw[] = {1, 2, 3} -> DynamicArray<int> original(raw, 3) -> DynamicArray<int> copy(original) -> size"
+        << "\nexpected:" << "3";
+    EXPECT_EQ(copy.Get(0), 1)
+        << "input:" << "int raw[] = {1, 2, 3} -> DynamicArray<int> original(raw, 3) -> DynamicArray<int> copy(original) -> seq[0]"
+        << "\nexpected:" << "1";
+    EXPECT_EQ(copy.Get(2), 3)
+        << "input:" << "int raw[] = {1, 2, 3} -> DynamicArray<int> original(raw, 3) -> DynamicArray<int> copy(original) -> seq[2]"
+        << "\nexpected:" << "3";
 }
 
 TEST(DynamicArrayConstructors, ZeroSizeArray) {
     DynamicArray<int> empty(0);
-    EXPECT_EQ(empty.GetSize(), 0);
-    EXPECT_THROW(empty.Get(0), IndexOutOfRangeException);
+    EXPECT_EQ(empty.GetSize(), 0)
+        << "input:" << "DynamicArray<int> empty(0) -> size"
+        << "\nexpected:" << "0";
+    EXPECT_THROW(empty.Get(0), IndexOutOfRangeException)
+        << "input:" << "DynamicArray<int> empty(0) -> seq[0]"
+        << "\nexpected:" << "no throw";
 }
 
 TEST(DynamicArrayAccess, Get_Valid) {

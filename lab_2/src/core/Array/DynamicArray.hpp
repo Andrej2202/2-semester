@@ -7,12 +7,16 @@ private:
     T* data_;
     size_t size_;
 public:
+    using elem = T;
+    using pointer = T*;
+    using reference = T&;
+
     DynamicArray(size_t size);
-    DynamicArray(T* items, size_t count);
+    DynamicArray(pointer items, size_t count);
     DynamicArray(const DynamicArray<T>& other);
     ~DynamicArray(){delete[] data_;}
     
-    T Get(size_t index);
+    reference Get(size_t index);
     size_t GetSize(){return size_;}
 
     void Set(size_t index, T value); 

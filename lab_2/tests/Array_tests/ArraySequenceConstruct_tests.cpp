@@ -24,7 +24,7 @@ TEST(ArraySequenceBasics, ConstructFromRawArray) {
 TEST(ArraySequenceBasics, ConstructEmpty) {
     MutableArraySequence<int> seq;
     EXPECT_EQ(seq.GetLength(), 0)
-        << "input:" << "MutableArraySequence<int> seq -> seq length()"
+        << "input:" << "MutableArraySequence<int> seq -> seq length"
         << "\nexpected:" << "0";
     
     EXPECT_THROW(seq.GetFirst(), IndexOutOfRangeException)
@@ -38,15 +38,15 @@ TEST(ArraySequenceBasics, ConstructFromLinkedList) {
     MutableArraySequence<int> seq(list);
     
     EXPECT_EQ(seq.GetLength(), 3)
-        << "input:" << "int arr[] = {10, 20, 30, 40} -> LinkedList<int> list(arr, 3) -> MutableArraySequence<int> seq(list) -> length"
+        << "input:" << "int arr[] = {5, 10, 15} -> LinkedList<int> list(arr, 3) -> MutableArraySequence<int> seq(list) -> length"
         << "\nexpected:" << "3";
-    EXPECT_EQ(seq.Get(1), 10)
-        << "input:" << "int arr[] = {10, 20, 30, 40} -> LinkedList<int> list(arr, 3) -> MutableArraySequence<int> seq(list) -> seq[1]"
-        << "\nexpected:" << "10";
     EXPECT_EQ(seq.GetFirst(), 5)
-        << "input:" << "int arr[] = {10, 20, 30, 40} -> LinkedList<int> list(arr, 3) -> MutableArraySequence<int> seq(list) -> seq[0]"
+        << "input:" << "int arr[] = {5, 10, 15} -> LinkedList<int> list(arr, 3) -> MutableArraySequence<int> seq(list) -> seq[0]"
         << "\nexpected:" << "5";
+    EXPECT_EQ(seq.Get(1), 10)
+        << "input:" << "int arr[] = {5, 10, 15} -> LinkedList<int> list(arr, 3) -> MutableArraySequence<int> seq(list) -> seq[1]"
+        << "\nexpected:" << "10";
     EXPECT_EQ(seq.GetLast(), 15)
-        << "input:" << "int arr[] = {10, 20, 30, 40} -> LinkedList<int> list(arr, 3) -> MutableArraySequence<int> seq(list) -> seq[2]"
+        << "input:" << "int arr[] = {5, 10, 15} -> LinkedList<int> list(arr, 3) -> MutableArraySequence<int> seq(list) -> seq[2]"
         << "\nexpected:" << "15";
 }

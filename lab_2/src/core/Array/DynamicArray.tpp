@@ -19,7 +19,7 @@ DynamicArray<T>::DynamicArray(const DynamicArray<T>& other) : size_(other.size_)
 
 #pragma region "Methodes"
 template<class T>
-T DynamicArray<T>::Get(size_t index){
+auto DynamicArray<T>::Get(size_t index) -> reference{
     if(index >= size_){
         throw IndexOutOfRangeException("DynamicArray", "Get", "index is not in size bounds.");
     }

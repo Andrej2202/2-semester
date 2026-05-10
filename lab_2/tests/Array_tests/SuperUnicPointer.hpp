@@ -1,10 +1,11 @@
 #pragma once 
-
+#include <memory>
 template <typename T>
 class SuperUnicPointer{
 private:
     T* pointer_;
 public:
+// makenew
     SuperUnicPointer(T* pointer) : pointer_(pointer) {}
     ~SuperUnicPointer() {delete pointer_;}
 
@@ -20,6 +21,7 @@ public:
             delete pointer_;
             pointer_ = other.pointer_;
             other.pointer_ = nullptr;
+            //std::make_unique
         }
         return *this;
     }

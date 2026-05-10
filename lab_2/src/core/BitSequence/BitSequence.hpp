@@ -24,7 +24,7 @@ protected:
         }
     }
 
-    virtual ~BitSequence() { delete bits; }
+    ~BitSequence() { delete bits; }
 
     virtual BitSequence<T_word>* Clone() const = 0;
     virtual BitSequence<T_word>* Instance() = 0;

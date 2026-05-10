@@ -1,6 +1,7 @@
 #pragma once
 #include <exception>
 #include <string>
+#include <format>
 
 class IndexOutOfRangeException : public std::exception {
 private:
