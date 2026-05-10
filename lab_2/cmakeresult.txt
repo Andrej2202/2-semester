@@ -1,0 +1,58 @@
+[  0%] Built target core_lib_autogen_timestamp_deps
+[  2%] Automatic MOC for target core_lib
+[  2%] Built target core_lib_autogen
+Сработала ваша глобальная настройка set(CMAKE_AUTOMOC ON). 
+CMake проверил заголовки core_lib на наличие макросов Qt (Q_OBJECT, Q_PROPERTY и т.д.). 
+[  5%] Building CXX object CMakeFiles/core_lib.dir/core_lib_autogen/mocs_compilation.cpp.obj
+Компиляция автоматически сгенерированного файла-заглушки от MOC.
+[  8%] Linking CXX static library libcore_lib.a
+Команда add_library(core_lib ...) завершилась. Все .hpp-файлы (шаблоны) и MOC-объекты упакованы в статическую библиотеку libcore_lib.a.
+[ 11%] Built target core_lib
+Для CMake любой add_library или add_executable — это узел графа зависимостей. 
+Система сборки создаёт для него правило. Короче по факту Built target означает:
+Зависимости таргета проверены, все пользовательские шаги (MOC/UIC) выполнены, артефакт (некий файл, который генерируется в процессе сборки проекта)
+создан или помечен как up-to-date. Можно переходить к зависимым таргетам.
+
+
+[ 11%] Built target lab2_gui_autogen_timestamp_deps
+[ 13%] Automatic MOC for target lab2_gui
+[ 13%] Built target lab2_gui_autogen
+[ 16%] Building CXX object CMakeFiles/lab2_gui.dir/lab2_gui_autogen/mocs_compilation.cpp.obj
+[ 19%] Building CXX object CMakeFiles/lab2_gui.dir/src/UI/gui_main.cpp.obj
+[ 22%] Building CXX object CMakeFiles/lab2_gui.dir/src/UI/mainwindow.cpp.obj
+[ 25%] Building CXX object CMakeFiles/lab2_gui.dir/src/UI/mainscreenwidget.cpp.obj
+[ 27%] Building CXX object CMakeFiles/lab2_gui.dir/src/UI/arraysequencewidget.cpp.obj
+[ 30%] Building CXX object CMakeFiles/lab2_gui.dir/src/UI/listsequencewidget.cpp.obj
+[ 33%] Linking CXX executable lab2_gui.exe
+[ 36%] Built target lab2_gui
+[ 36%] Built target gtest_autogen_timestamp_deps
+[ 38%] Automatic MOC for target gtest
+[ 38%] Built target gtest_autogen
+[ 41%] Building CXX object googletest/googletest/CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.obj
+[ 44%] Building CXX object googletest/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.obj
+[ 47%] Linking CXX static library ..\..\lib\libgtest.a
+[ 50%] Built target gtest
+[ 50%] Built target gtest_main_autogen_timestamp_deps
+[ 52%] Automatic MOC for target gtest_main
+[ 52%] Built target gtest_main_autogen
+[ 55%] Building CXX object googletest/googletest/CMakeFiles/gtest_main.dir/gtest_main_autogen/mocs_compilation.cpp.obj
+[ 58%] Building CXX object googletest/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj
+[ 61%] Linking CXX static library ..\..\lib\libgtest_main.a
+[ 63%] Built target gtest_main
+[ 63%] Built target Lab2Tests_autogen_timestamp_deps
+[ 66%] Automatic MOC for target Lab2Tests
+- это проблемка тк у нас же автомок глобальный, поэтому сюда он тоже прилетел кста
+
+[ 66%] Built target Lab2Tests_autogen
+[ 69%] Building CXX object CMakeFiles/Lab2Tests.dir/Lab2Tests_autogen/mocs_compilation.cpp.obj
+[ 72%] Building CXX object CMakeFiles/Lab2Tests.dir/tests/Array_tests/DynamicArray_tests.cpp.obj
+[ 75%] Building CXX object CMakeFiles/Lab2Tests.dir/tests/Array_tests/ArraySequenceConstruct_tests.cpp.obj
+[ 77%] Building CXX object CMakeFiles/Lab2Tests.dir/tests/Array_tests/MutableArraySequence_tests.cpp.obj
+[ 80%] Building CXX object CMakeFiles/Lab2Tests.dir/tests/Array_tests/ImmutableArraySequence_tests.cpp.obj
+[ 83%] Building CXX object CMakeFiles/Lab2Tests.dir/tests/List_tests/LinkedList_tests.cpp.obj
+[ 86%] Building CXX object CMakeFiles/Lab2Tests.dir/tests/List_tests/ImmutableListSequence_tests.cpp.obj
+[ 88%] Building CXX object CMakeFiles/Lab2Tests.dir/tests/List_tests/MutableListSequence_tests.cpp.obj
+[ 91%] Building CXX object CMakeFiles/Lab2Tests.dir/tests/List_tests/ListSequenceConstructors_tests.cpp.obj
+[ 94%] Building CXX object CMakeFiles/Lab2Tests.dir/tests/BitSequence_tests/Bit_tests.cpp.obj
+[ 97%] Linking CXX executable Lab2Tests.exe
+[100%] Built target Lab2Tests
