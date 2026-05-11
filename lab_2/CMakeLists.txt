@@ -8,7 +8,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 find_package(Qt6 COMPONENTS Widgets REQUIRED)
-
 #Ищет установленную в системе Qt и её Widgets. REQUIRED означает, что сборка остановится, если Qt не найден или не настроенn через спец пути там как-то.
 set(CMAKE_AUTOMOC ON) 
 # При запуске MOC сканирует .h/.hpp файлы, находит классы с Q_OBJECT и генерирует дополнительный .cpp файл.
@@ -31,7 +30,6 @@ set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
 # Ускоряет конфигурацию и install, тк CMake не тратит время на генерацию и выполнение правил установки. Команда cmake --install . проходит мгновенно.
 
 
-
 add_subdirectory(googletest)
 # Добавляет папку googletest как подпроект. CMake найдёт в ней свой CMakeLists.txt и соберёт целевые библиотеки gtest и gtest_main локально в папке сборки.
 
@@ -42,28 +40,12 @@ set(ARRAY_DIR ${CORE_DIR}/Array)
 set(BIT_DIR   ${CORE_DIR}/BitSequence)
 set(LIST_DIR  ${CORE_DIR}/List)
 
-<<<<<<< HEAD
-add_library(core_lib STATIC #виды связыванмя
-=======
 
-#создаем статическую библиотеку 
-add_library(core_lib STATIC
->>>>>>> af78799ef89ce29fa2b6cd5cae746e6f5143dab4
-    ${ARRAY_DIR}/DynamicArray.hpp
-    ${LIST_DIR}/LinkedList.hpp
-    ${SEQ_DIR}/Sequence.hpp
-    ${ARRAY_DIR}/ArraySequence.hpp
-    ${LIST_DIR}/ListSequence.hpp
-    ${ARRAY_DIR}/MutableArraySequence.hpp
-    ${ARRAY_DIR}/ImmutableArraySequence.hpp
-    ${LIST_DIR}/MutableListSequence.hpp
-    ${LIST_DIR}/ImmutableListSequence.hpp
-    ${BIT_DIR}/BitWithProxy.hpp
-    ${BIT_DIR}/BitSequence.hpp
-    ${CORE_DIR}/Exceptions.hpp
-)
+#создаем интерфейсную библиотеку 
+#INTERFACE базарит: "эти пути нужны только тем, кто линкуется к core_lib". Сама библиотека не компилируется.
+add_library(core_lib INTERFACE)
 
-target_include_directories(core_lib PUBLIC 
+target_include_directories(core_lib INTERFACE 
     ${CORE_DIR}
     ${SEQ_DIR}
     ${ARRAY_DIR}
@@ -111,10 +93,6 @@ target_link_libraries(Lab2Tests PRIVATE
 
 enable_testing()
 add_test(NAME LabTests COMMAND Lab2Tests)
-
-
-add_executable(TestMain test_main.cpp)
-target_link_libraries(TestMain PRIVATE core_lib)
 
 # D:\2_semester\lab_2>.\build\Lab2Tests.exe --gtest_color=yes
 

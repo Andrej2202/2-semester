@@ -13,4 +13,8 @@ public:
     Sequence<T>* Instance() override { 
         return this->Clone();
     }
+
+    Sequence<T>* CreateEmpty() const override { 
+        return new ImmutableArraySequence<T>(); 
+    }
 };

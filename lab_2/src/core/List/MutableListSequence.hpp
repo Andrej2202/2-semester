@@ -13,4 +13,8 @@ public:
     Sequence<T>* Instance() override { 
         return this;
     }
+
+    Sequence<T>* CreateEmpty() const override { 
+        return new MutableListSequence<T>(); 
+    }
 };
