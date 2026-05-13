@@ -2,7 +2,7 @@
 #include <string>
 #include <Exceptions.hpp>
 #include <ArraySequence.hpp>
-#include "SuperUnicPointer.hpp"
+#include "SuperUniquePointer.hpp"
 #include <MutableArraySequence.hpp>
 
 TEST(MutableArraySequenceTest, AppendPrependInsertAt) {
@@ -109,7 +109,7 @@ TEST(SequenceOpsTest, GetSubsequence_BoundaryAndSingleElement) {
     seq.Append(20);
     seq.Append(30);
     
-    SuperUnicPointer<Sequence<int>> sub(seq.GetSubsequence(0, 0));
+    auto sub = seq.GetSubsequence(0, 0);
     EXPECT_EQ(sub->GetLength(), 1)
         << "input:" << "sub->GetLength()"
         << "\nexpected:" << "1";
@@ -117,7 +117,7 @@ TEST(SequenceOpsTest, GetSubsequence_BoundaryAndSingleElement) {
         << "input:" << "sub->Get(0)"
         << "\nexpected:" << "10";
         
-    sub = SuperUnicPointer<Sequence<int>>(seq.GetSubsequence(2, 2));
+    sub = SuperUniquePointer<Sequence<int>>(seq.GetSubsequence(2, 2));
     EXPECT_EQ(sub->Get(0), 30)
         << "input:" << "sub->Get(0)"
         << "\nexpected:" << "30";

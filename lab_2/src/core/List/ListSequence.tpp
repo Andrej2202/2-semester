@@ -9,15 +9,16 @@ template<class T>
 size_t ListSequence<T>::GetLength() const { return data_->GetLength(); }
 
 template<class T>
-Sequence<T>* ListSequence<T>::GetSubsequence(size_t startIndex, size_t endIndex) const {
-    if (startIndex > endIndex)
-        throw IndexOutOfRangeException("ListSequence", "GetSubsequence", "Invalid subsequence range.");
-    LinkedList<T>* subList = data_->GetSubList(startIndex, endIndex);
-    Sequence<T>* result = this->Clone();
-    delete static_cast<ListSequence<T>*>(result)->data_;
-    static_cast<ListSequence<T>*>(result)->data_ = subList;
+SuperUniquePointer<Sequence<T>>  ListSequence<T>::GetSubsequence(size_t startIndex, size_t endIndex) const {
+    // if (startIndex > endIndex)
+    //     throw IndexOutOfRangeException("ListSequence", "GetSubsequence", "Invalid subsequence range.");
+    // LinkedList<T>* subList = data_->GetSubList(startIndex, endIndex);
+    // Sequence<T>* result = this->Clone();
+    // delete static_cast<ListSequence<T>*>(result)->data_;
+    // static_cast<ListSequence<T>*>(result)->data_ = subList;
     
-    return result;
+    // return makeUnique<Sequence<T>>(result);
+    return nullptr;
 }
 #pragma endregion
 

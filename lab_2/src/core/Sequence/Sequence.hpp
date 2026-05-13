@@ -1,5 +1,5 @@
 #pragma once
-
+#include <SuperUniquePointer.hpp>
 template <class T>
 class Sequence {
 public:
@@ -9,7 +9,7 @@ public:
     virtual T GetLast() const = 0;
     virtual T Get(size_t index) const = 0;
     virtual size_t GetLength() const = 0;
-    virtual Sequence<T>* GetSubsequence(size_t startIndex, size_t endIndex) const = 0;
+    virtual SuperUniquePointer<Sequence<T>> GetSubsequence(size_t startIndex, size_t endIndex) const = 0;
     
     virtual Sequence<T>* Append(T item) = 0;
     virtual Sequence<T>* Prepend(T item) = 0;

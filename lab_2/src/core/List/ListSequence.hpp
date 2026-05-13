@@ -1,5 +1,6 @@
 #pragma once
 #include "Sequence.hpp"
+#include <SuperUniquePointer.hpp>
 #include "LinkedList.hpp"
 
 template <class T>
@@ -31,7 +32,7 @@ public:
     T GetLast() const override;
     T Get(size_t index) const override;
     size_t GetLength() const override;
-    Sequence<T>* GetSubsequence(size_t startIndex, size_t endIndex) const override;
+    SuperUniquePointer<Sequence<T>> GetSubsequence(size_t startIndex, size_t endIndex) const override;
 
     Sequence<T>* Append(T item) override;
     Sequence<T>* Prepend(T item) override;

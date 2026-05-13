@@ -61,7 +61,7 @@ target_link_libraries(lab3_gui PRIVATE
 add_executable(Lab3Tests
     tests/LinearForm_tests.cpp
 )
-#target_include_directories(Lab2Tests PRIVATE ${CORE_DIR} ${SEQ_DIR} ${ARRAY_DIR} ${BIT_DIR} ${LIST_DIR})
+#target_include_directories(Lab3Tests PRIVATE ${CORE_DIR} ${SEQ_DIR} ${ARRAY_DIR} ${BIT_DIR} ${LIST_DIR})
 target_link_libraries(Lab3Tests PRIVATE 
     core_lib
     gtest gtest_main
@@ -69,3 +69,9 @@ target_link_libraries(Lab3Tests PRIVATE
 
 enable_testing()
 add_test(NAME LabTests COMMAND Lab3Tests)
+
+
+
+# D:\2_semester\lab_3>.\build\Lab3Tests.exe --gtest_color=yes
+# D:\2_semester\lab_3>.\build\lab3_gui.exe 
+# cmake -G "MinGW Makefiles" -B build -DCMAKE_PREFIX_PATH="D:\Qt\6.11.0\mingw_64"

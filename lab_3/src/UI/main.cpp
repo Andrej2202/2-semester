@@ -10,7 +10,7 @@ Sequence<T>* readSequence(const std::string& label) {
     std::cout << "Введите количество элементов для '" << label << "': ";
     std::cin >> count;
     Sequence<T>* seq = new MutableArraySequence<T>();
-    for (size_t i = 0; i < count; ++i) {
+    for (size_t i = 0; i < count; i++) {
         T val;
         std::cout << "  Элемент [" << i << "]: ";
         std::cin >> val;
@@ -113,7 +113,7 @@ int main() {
                     std::cout << "\n--- Вычисление значения ---\n";
                     std::cout << "Форма имеет " << arity << " переменных.\n";
                     Sequence<double>* args = new MutableArraySequence<double>();
-                    for (size_t i = 0; i < arity; ++i) {
+                    for (size_t i = 0; i < arity; i++) {
                         double val;
                         std::cout << "  x" << (i + 1) << " = ";
                         std::cin >> val;
@@ -128,7 +128,7 @@ int main() {
                 default:
                     std::cout << "Неверный выбор. Попробуйте снова.\n";
             }
-        } catch (const std::exception& e) {
+        } catch (const IndexOutOfRangeException& e) {
             std::cout << e.what() << "\n";
         } catch (...) {
             std::cout << "\nПроизошла неизвестная ошибка.\n";

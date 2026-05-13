@@ -2,6 +2,7 @@
 #include "Sequence.hpp"
 #include "DynamicArray.hpp"
 #include <Exceptions.hpp>
+#include <SuperUniquePointer.hpp>
 
 template<typename T> class LinkedList; 
 
@@ -17,7 +18,7 @@ private:
 protected:
     DynamicArray<T>* data_;
 
-    virtual ArraySequence<T>* Clone() const = 0;
+    virtual SuperUniquePointer<Sequence<T>> Clone() const = 0;
     virtual Sequence<T>* Instance() = 0;
 
 public:
@@ -25,13 +26,18 @@ public:
     explicit ArraySequence(T* items, size_t count);
     explicit ArraySequence(const LinkedList <T> & list);
     explicit ArraySequence(const ArraySequence<T> & array);
+    ArraySequence(const Sequence<T>* other) : data_(new T[other.GetLength()]) {
+        for(auto el: *other) {
+
+        }
+    };
     ~ArraySequence(){delete data_;}
 
     T GetFirst() const override { return data_->Get(0); }
     T GetLast() const override { return data_->Get(data_->GetSize() - 1); }
     T Get(size_t index) const override { return data_->Get(index); }
     size_t GetLength() const override { return data_->GetSize(); }
-    Sequence<T>* GetSubsequence(size_t startIndex, size_t endIndex) const override;
+    SuperUniquePointer<Sequence<T>> GetSubsequence(size_t startIndex, size_t endIndex) const override;
 
 
     //нуно Mutable/imutable

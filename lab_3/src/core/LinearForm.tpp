@@ -3,7 +3,7 @@ template<typename T>
 LinearForm<T>::LinearForm(Sequence<T>* coefficients) : coeffs(coefficients) {
     if (!coeffs || coeffs->GetLength() == 0) {
         delete coeffs;
-        throw std::invalid_argument("LinearForm requires at least a0 coefficient");
+        throw IndexOutOfRangeException("LinearForm", "constructor", "requires at least a0 coefficient");
     }
 }
 
@@ -27,7 +27,7 @@ LinearForm<T> LinearForm<T>::operator+(const LinearForm& other) const {
 
     Sequence<T>* result = coeffs->CreateEmpty();
     try {
-        for (size_t i = 0; i < maxN; ++i) {
+        for (size_t i = 0; i < maxN; i++) {
             T c1 = (i < n1) ? coeffs->Get(i) : T(0);
             T c2 = (i < n2) ? other.coeffs->Get(i) : T(0);
             result->Append(c1 + c2);
@@ -47,7 +47,7 @@ LinearForm<T> LinearForm<T>::operator-(const LinearForm& other) const {
 
     Sequence<T>* result = coeffs->CreateEmpty();
     try {
-        for (size_t i = 0; i < maxN; ++i) {
+        for (size_t i = 0; i < maxN; i++) {
             T c1 = (i < n1) ? coeffs->Get(i) : T(0);
             T c2 = (i < n2) ? other.coeffs->Get(i) : T(0);
             result->Append(c1 - c2);
@@ -71,13 +71,11 @@ template<typename T>
 T LinearForm<T>::Evaluate(const Sequence<T>& args) const {
     size_t n_vars = coeffs->GetLength() - 1;
     if (args.GetLength() != n_vars) {
-        throw std::invalid_argument(
-            "Argument count mismatch: expected " + std::to_string(n_vars) + 
-            ", got " + std::to_string(args.GetLength()));
+        throw InvalidArgumentException("LinearForm", "Evaluate", "arguments ammount does not match arity.");
     }
 
     T result = coeffs->Get(0); 
-    for (size_t i = 1; i < coeffs->GetLength(); ++i) {
+    for (size_t i = 1; i < coeffs->GetLength(); i++) {
         result = result + coeffs->Get(i) * args.Get(i - 1);
     }
     return result;

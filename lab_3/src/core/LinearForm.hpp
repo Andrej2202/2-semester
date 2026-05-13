@@ -1,9 +1,15 @@
 #pragma once
 #include <Sequence.hpp>
 #include <Algorithms.hpp>
-#include <stdexcept>
+#include <Exceptions.hpp>
 #include <ostream>
 #include <algorithm>
+
+template <typename <typename> class Container, typename T>
+class LinForm {
+    Container coeff;
+};
+
 
 template<typename T>
 class LinearForm {
@@ -15,7 +21,7 @@ private:
         if (!src) return nullptr;
         Sequence<T>* copy = src->CreateEmpty();
         try {
-            for (size_t i = 0; i < src->GetLength(); ++i) {
+            for (size_t i = 0; i < src->GetLength(); i++) {
                 copy->Append(src->Get(i));
             }
         } catch (...) {
@@ -44,7 +50,7 @@ public:
     const Sequence<T>& GetCoefficients() const { return *coeffs; }
     size_t GetArity() const { return coeffs->GetLength() - 1; }
 
-    // Дружественный вывод но он чисто для отладки и терминального интерфейса на 1 парах
+    // Чисто для отладки и терминального интерфейса на 1 парах
     friend std::ostream& operator<<(std::ostream& os, const LinearForm& form) {
         os << "F(x) = ";
         for (size_t i = 0; i < form.coeffs->GetLength(); i++) {
