@@ -25,28 +25,28 @@ LinkedList<T>::LinkedList(const LinkedList<T>& other) : head_(nullptr), tail_(nu
 #pragma region "GetMethodes"
 template<class T>
 T LinkedList<T>::GetFirst() const {
-    if (head_ == nullptr) throw IndexOutOfRangeException("LinkedList", "GetFirst", "LinkedList is empty");
+    if (head_ == nullptr) 
+        throw IndexOutOfRangeException("LinkedList", "GetFirst", "LinkedList is empty");
     return head_->data;
 }
 
 template<class T>
 T LinkedList<T>::GetLast() const {
-    if (head_ == nullptr) throw IndexOutOfRangeException("LinkedList", "GetLast", "LinkedList is empty");
+    if (head_ == nullptr) 
+        throw IndexOutOfRangeException("LinkedList", "GetLast", "LinkedList is empty");
     return tail_->data;
 }
 
 template<class T>
 T LinkedList<T>::Get(size_t index) const {
-    if (index < 0) {
-        throw IndexOutOfRangeException("LinkedList", "Get", "Index < 0");
-    }
 
     Node_* current = head_;
-    for (size_t i = 0; i < index && current != nullptr; ++i) {
+    size_t i;
+    for (i = 0; i < index && current != nullptr; ++i) {
         current = current->next;
     }
     if (current == nullptr) {
-        throw IndexOutOfRangeException("LinkedList", "Get", "Index > length");
+        throw IndexOutOfRangeException("LinkedList", "Get", "Index > length", i, index);
     }
 
     return current->data;
@@ -64,13 +64,16 @@ size_t LinkedList<T>::GetLength() const {
 }
 
 template<class T>
-LinkedList<T>* LinkedList<T>::GetSubList(size_t startIndex, size_t endIndex) const {
+LinkedList<T> LinkedList<T>::GetSubList(size_t startIndex, size_t endIndex) const {
     size_t len = GetLength();
-    if (startIndex >= len || endIndex >= len || startIndex > endIndex) {
-        throw IndexOutOfRangeException("LinkedList", "GetSubList", "Invalid sublist range");
+    if (startIndex >= len || endIndex >= len) {
+        throw IndexOutOfRangeException("LinkedList", "GetSubList", "Invalid sublist range", std::max(startIndex, endIndex), len);
+    }
+    if (startIndex > endIndex) {
+        throw IndexOutOfRangeException("LinkedList", "GetSubList", "Invalid sublist range", endIndex, startIndex);
     }
 
-    LinkedList<T>* result = new LinkedList<T>();
+    LinkedList<T> result;
     Node_* current = head_;
 
     for (size_t i = 0; i < startIndex; ++i) {
@@ -78,7 +81,7 @@ LinkedList<T>* LinkedList<T>::GetSubList(size_t startIndex, size_t endIndex) con
     }
     size_t count = endIndex - startIndex + 1;
     for (size_t i = 0; i < count; ++i) {
-        result->Append(current->data);
+        result.Append(current->data);
         current = current->next;
     }
 
@@ -112,12 +115,10 @@ void LinkedList<T>::Prepend(T item) {
 
 template<class T>
 auto LinkedList<T>::InsertAt(T item, size_t index) -> void {
-    if (index < 0)
-        throw IndexOutOfRangeException("LinkedList", "InsertAt", "index < 0");
     
     size_t currentLength = GetLength();
     if (index > currentLength) 
-        throw IndexOutOfRangeException("LinkedList", "InsertAt", "index > length");
+        throw IndexOutOfRangeException("LinkedList", "InsertAt", "index > length", currentLength, index);
         
     if (index == 0) {
         Prepend(item);

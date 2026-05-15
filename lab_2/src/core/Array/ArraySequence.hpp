@@ -18,26 +18,22 @@ private:
 protected:
     DynamicArray<T>* data_;
 
-    virtual SuperUniquePointer<Sequence<T>> Clone() const = 0;
+    virtual ArraySequence<T>* Clone() const = 0;
     virtual Sequence<T>* Instance() = 0;
 
 public:
     ArraySequence() : data_(new DynamicArray<T>(0)) {}
-    explicit ArraySequence(T* items, size_t count);
-    explicit ArraySequence(const LinkedList <T> & list);
-    explicit ArraySequence(const ArraySequence<T> & array);
-    ArraySequence(const Sequence<T>* other) : data_(new T[other.GetLength()]) {
-        for(auto el: *other) {
-
-        }
-    };
+    ArraySequence(T* items, size_t count);
+    ArraySequence(const LinkedList <T> & list);
+    ArraySequence(const ArraySequence<T> & array);
+    ArraySequence(const Sequence<T>* other) : data_(new T[other.GetLength()]) {};
+    ArraySequence(const DynamicArray<T>& arr) : data_(new DynamicArray(arr)) {}
     ~ArraySequence(){delete data_;}
 
     T GetFirst() const override { return data_->Get(0); }
     T GetLast() const override { return data_->Get(data_->GetSize() - 1); }
     T Get(size_t index) const override { return data_->Get(index); }
     size_t GetLength() const override { return data_->GetSize(); }
-    SuperUniquePointer<Sequence<T>> GetSubsequence(size_t startIndex, size_t endIndex) const override;
 
 
     //нуно Mutable/imutable

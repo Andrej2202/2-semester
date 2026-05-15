@@ -21,30 +21,6 @@ ArraySequence<T>::ArraySequence(const ArraySequence<T> & array){
 
 #pragma endregion
 
-#pragma region "GetMethode"
-template<class T>
-SuperUniquePointer<Sequence<T>> ArraySequence<T>::GetSubsequence(size_t startIndex, size_t endIndex) const{
-    if(endIndex >= data_->GetSize() || startIndex > endIndex){
-        throw IndexOutOfRangeException("ArraySequence", "GetSubList", "size of new container out of range.");
-    }
-    size_t buffer_length = endIndex - startIndex + 1;
-    DynamicArray<T> buffer{buffer_length};
-    // T* buffer = new T[buffer_length];
-
-    for(auto i = 0; i < buffer_length; i++){
-        buffer[i] = data_->Get(startIndex + i);
-    } 
-    return ArraySequence(std::move(buffer));
-
-    // SuperUniquePointer<Sequence<T>> result = this->Clone();
-    /*
-    delete static_cast<ArraySequence<T>*>(result)->data_; 
-    static_cast<ArraySequence<T>*>(result)->data_ = new DynamicArray<T>(buffer, buffer_length);
-    */
-    // delete[] buffer;
-    // return result;
-}
-#pragma endregion
 
 #pragma region "InsertMethodes"
 template<class T>
@@ -83,7 +59,7 @@ template<class T>
 void ArraySequence<T>::InsertAtInternal(T item, size_t index){
     size_t temp = data_->GetSize();
     if (index > temp) {
-        throw IndexOutOfRangeException("ArraySequence", "InsertAtInternal", "index > size.");
+        throw IndexOutOfRangeException("ArraySequence", "InsertAtInternal", "index > size.", temp, index);
     }
     data_->Resize(temp + 1);
     for(size_t i = temp; i > index; i--){
@@ -118,7 +94,7 @@ void ArraySequence<T>::ConcatInternal(Sequence<T>* smth) {
 
 template<class T>
 Sequence<T>* ArraySequence<T>::Concat(Sequence<T>* smth){
-    Sequence<T>* target = (this->Clone()).get();
+    Sequence<T>* target = this->Clone();
     static_cast<ArraySequence<T>*>(target)->ConcatInternal(smth);
     return target;
 }

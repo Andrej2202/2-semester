@@ -1,6 +1,5 @@
 #pragma once
 #include "Sequence.hpp"
-#include <SuperUniquePointer.hpp>
 #include "LinkedList.hpp"
 
 template <class T>
@@ -18,12 +17,9 @@ protected:
     virtual Sequence<T>* Instance() = 0;
 public:
     ListSequence() : data_(new LinkedList<T>()) {}
-    explicit ListSequence(T* items, size_t count) 
-        : data_(new LinkedList<T>(items, count)) {}
-    explicit ListSequence(const LinkedList<T>& list) 
-        : data_(new LinkedList<T>(list)) {}
-    ListSequence(const ListSequence<T>& other) 
-        : data_(new LinkedList<T>(*(other.data_))) {}
+    ListSequence(T* items, size_t count) : data_(new LinkedList<T>(items, count)) {}
+    ListSequence(const LinkedList<T>& list) : data_(new LinkedList<T>(list)) {}
+    ListSequence(const ListSequence<T>& other) : data_(new LinkedList<T>(*(other.data_))) {}
     virtual ~ListSequence() {
         delete data_;
     }
@@ -32,7 +28,6 @@ public:
     T GetLast() const override;
     T Get(size_t index) const override;
     size_t GetLength() const override;
-    SuperUniquePointer<Sequence<T>> GetSubsequence(size_t startIndex, size_t endIndex) const override;
 
     Sequence<T>* Append(T item) override;
     Sequence<T>* Prepend(T item) override;

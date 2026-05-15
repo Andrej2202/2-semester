@@ -25,8 +25,8 @@ private:
 
 public:
     LinkedList() : head_(nullptr), tail_(nullptr) {}
-    explicit LinkedList(T* items, size_t count);
-    explicit LinkedList(const LinkedList<T>& other);
+    LinkedList(T* items, size_t count);
+    LinkedList(const LinkedList<T>& other);
     ~LinkedList() {clear();}
 
     
@@ -34,7 +34,7 @@ public:
     T GetLast() const;
     T Get(size_t index) const;
     size_t GetLength() const;
-    LinkedList<T>* GetSubList(size_t startIndex, size_t endIndex) const;
+    LinkedList<T> GetSubList(size_t startIndex, size_t endIndex) const;
 
     
     void Append(T item);

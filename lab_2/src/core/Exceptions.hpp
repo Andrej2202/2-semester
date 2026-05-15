@@ -13,6 +13,10 @@ public:
         : message_(std::format("Index out of range in {} in method {} \nissue: {}", container, method, issue)) {
             
         } //stringstream
+    IndexOutOfRangeException(const std::string& container, const std::string& method, const std::string& issue, const size_t index, const size_t item) 
+        : message_(std::format("Index out of range in {} in method {} \nissue: {} \n index:{} tried_endex:{}", container, method, issue, index, item)) {
+            
+        } //stringstream
     IndexOutOfRangeException(const char* msg) : message_(msg ? msg : "Unknown index error") {}
 
     const char* what() const noexcept override {return message_.c_str();}
@@ -26,6 +30,8 @@ public:
     InvalidArgumentException(const std::string& msg) : message_(msg) {}
     InvalidArgumentException(const std::string& container, const std::string& method, const std::string& issue) 
         : message_(std::format("Invalid argument in {} in method {} \nissue: {}", container, method, issue)) {}
+    InvalidArgumentException(const std::string& container, const std::string& method, const std::string& issue, const size_t index, const size_t item) 
+        : message_(std::format("Invalid argument in {} in method {} \nissue: {} \n index:{} tried_endex:{}", container, method, issue, index, item)) {}
     InvalidArgumentException(const char* msg) : message_(msg ? msg : "Unknown invalid argument") {}
 
     const char* what() const noexcept override {return message_.c_str();}

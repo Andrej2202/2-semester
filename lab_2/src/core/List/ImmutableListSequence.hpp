@@ -17,4 +17,16 @@ public:
     Sequence<T>* CreateEmpty() const override { 
         return new ImmutableListSequence<T>(); 
     }
+
+    Sequence<T>*  GetSubsequence(size_t startIndex, size_t endIndex) const override;
 };
+
+
+template<class T>
+Sequence<T>*  ImmutableListSequence<T>::GetSubsequence(size_t startIndex, size_t endIndex) const {
+    if (startIndex > endIndex)
+        throw IndexOutOfRangeException("ListSequence", "GetSubsequence", "Invalid subsequence range.", endIndex, startIndex);
+    LinkedList<T> subList = this->data_->GetSubList(startIndex, endIndex);
+    
+    return new ImmutableListSequence<T>(std::move(subList));
+}

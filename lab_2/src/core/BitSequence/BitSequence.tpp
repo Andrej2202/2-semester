@@ -18,7 +18,7 @@ Bit<T_word> BitSequence<T_word>::GetLast() const{
 template <std::integral T_word>
 Bit<T_word> BitSequence<T_word>::Get(size_t index) const{
     if (index >= bits->GetSize()){
-        throw IndexOutOfRangeException("BitSequence", "Get", "size out of range.");
+        throw IndexOutOfRangeException("BitSequence", "Get", "size out of range.", bits->GetSize(), index);
     }
     return bits->Get(index);
 }
@@ -31,7 +31,7 @@ size_t BitSequence<T_word>::GetLength() const{
 template <std::integral T_word>
 Sequence<Bit<T_word>>* BitSequence<T_word>::GetSubsequence(size_t startIndex, size_t endIndex) const{
     if (endIndex >= bits->GetSize() || startIndex > endIndex) {
-        throw InvalidArgumentException("BitSequence", "GetSubsequence", "wrong indexes.");
+        throw InvalidArgumentException("BitSequence", "GetSubsequence", "wrong indexes.", bits->Getsize(), endIndex);
     }
     
     BitSequence<T_word>* result = CreateEmpty();
@@ -68,7 +68,7 @@ Sequence<Bit<T_word>>* BitSequence<T_word>::Prepend(Bit<T_word> item)  {
 template <std::integral T_word>
 Sequence<Bit<T_word>>* BitSequence<T_word>::InsertAt(Bit<T_word> item, size_t index) {
     if (index > bits->GetSize()){ 
-        throw IndexOutOfRangeException("BitSequence", "InsertAt", "index out of range.");
+        throw IndexOutOfRangeException("BitSequence", "InsertAt", "index out of range.", bits->GetSize(), index);
     }
     
     BitSequence<T_word>* target = this->Instance();
@@ -102,7 +102,7 @@ Sequence<Bit<T_word>>* BitSequence<T_word>::Concat(Sequence<Bit<T_word>>* otherS
 template <std::integral T_word>
 Bit<T_word>& BitSequence<T_word>::operator[](size_t index) {
     if (index >= bits->GetSize()){
-        throw IndexOutOfRangeException("BitSequence", "operator[]", "size out of range.");
+        throw IndexOutOfRangeException("BitSequence", "operator[]", "size out of range.", bits->GetSize(), index);
     }
     return (*bits)[index];
 }
@@ -110,7 +110,7 @@ Bit<T_word>& BitSequence<T_word>::operator[](size_t index) {
 template <std::integral T_word>
 const Bit<T_word>& BitSequence<T_word>::operator[](size_t index) const {
     if (index >= bits->GetSize()){
-        throw IndexOutOfRangeException("BitSequence", "operator[]", "index out of range.");
+        throw IndexOutOfRangeException("BitSequence", "operator[]", "index out of range.", bits->GetSize(), index);
     }
     return (*bits)[index];
 }
@@ -118,7 +118,7 @@ const Bit<T_word>& BitSequence<T_word>::operator[](size_t index) const {
 template <std::integral T_word>
 Sequence<Bit<T_word>>* BitSequence<T_word>::operator&(const BitSequence& other) const {
     if (bits->GetSize() != other.bits->GetSize()){
-        throw IndexOutOfRangeException("BitSequence", "operator&", "size missmatch.");
+        throw IndexOutOfRangeException("BitSequence", "operator&", "size missmatch.", bits->GetSize(), other.bits->GetSize());
     }
     
     BitSequence<T_word>* res = CreateEmpty();

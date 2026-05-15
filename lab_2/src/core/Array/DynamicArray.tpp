@@ -21,7 +21,7 @@ DynamicArray<T>::DynamicArray(const DynamicArray<T>& other) : size_(other.size_)
 template<class T>
 auto DynamicArray<T>::Get(size_t index) -> reference{
     if(index >= size_){
-        throw IndexOutOfRangeException("DynamicArray", "Get", "index is not in size bounds.");
+        throw IndexOutOfRangeException("DynamicArray", "Get", "index is not in size bounds.", size_, index);
     }
     return data_[index];
 }
@@ -29,7 +29,7 @@ auto DynamicArray<T>::Get(size_t index) -> reference{
 template<class T>
 void DynamicArray<T>::Set(size_t index, T value){
     if(index >= size_){
-        throw IndexOutOfRangeException("DynamicArray", "Set", "index is not in size bounds.");
+        throw IndexOutOfRangeException("DynamicArray", "Set", "index is not in size bounds.", size_, index);
     }
     data_[index] = value;
 }

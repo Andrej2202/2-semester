@@ -117,8 +117,8 @@ TEST(SequenceOpsTest, GetSubsequence_BoundaryAndSingleElement) {
         << "input:" << "sub->Get(0)"
         << "\nexpected:" << "10";
         
-    sub = SuperUniquePointer<Sequence<int>>(seq.GetSubsequence(2, 2));
-    EXPECT_EQ(sub->Get(0), 30)
+    auto sub2 = SuperUniquePointer<Sequence<int>>(seq.GetSubsequence(2, 2));
+    EXPECT_EQ(sub2->Get(0), 30)
         << "input:" << "sub->Get(0)"
         << "\nexpected:" << "30";
 }

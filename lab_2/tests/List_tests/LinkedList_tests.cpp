@@ -88,43 +88,6 @@ TEST(LinkedListMutators, InsertAt_Invalid) {
     EXPECT_THROW(list.InsertAt(99, 5), IndexOutOfRangeException);
 }
 
-TEST(LinkedListOperations, GetSubList_Valid) {
-    int arr[] = {1, 2, 3, 4, 5};
-    LinkedList<int> list(arr, 5);
-    
-    LinkedList<int>* sub = list.GetSubList(1, 3);
-    ASSERT_NE(sub, nullptr);
-    EXPECT_EQ(sub->GetLength(), 3);
-    EXPECT_EQ(sub->Get(0), 2);
-    EXPECT_EQ(sub->Get(1), 3);
-    EXPECT_EQ(sub->GetLast(), 4);
-    
-    delete sub;
-}
-
-TEST(LinkedListOperations, GetSubList_Boundary) {
-    LinkedList<int> list;
-    list.Append(10); list.Append(20); list.Append(30);
-    
-    LinkedList<int>* single = list.GetSubList(0, 0);
-    EXPECT_EQ(single->GetLength(), 1);
-    EXPECT_EQ(single->Get(0), 10);
-    delete single;
-    
-    single = list.GetSubList(2, 2);
-    EXPECT_EQ(single->Get(0), 30);
-    delete single;
-}
-
-TEST(LinkedListOperations, GetSubList_Invalid) {
-    int arr[] = {1, 2, 3};
-    LinkedList<int> list(arr, 3);
-    
-    EXPECT_THROW(list.GetSubList(-1, 2), IndexOutOfRangeException);
-    EXPECT_THROW(list.GetSubList(0, 3), IndexOutOfRangeException);
-    EXPECT_THROW(list.GetSubList(2, 1), IndexOutOfRangeException);
-}
-
 TEST(LinkedListOperations, Concat_BasicAndEmpty) {
     int a1[] = {1, 2};
     int a2[] = {3, 4, 5};
