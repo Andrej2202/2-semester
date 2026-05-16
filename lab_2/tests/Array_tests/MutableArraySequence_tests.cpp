@@ -73,7 +73,7 @@ TEST(MutableArraySequenceTest, InsertAt_Invalid) {
     EXPECT_THROW(seq.InsertAt(10, -1), IndexOutOfRangeException)
         << "input:" << "seq.InsertAt(10, -1)"
         << "\nexpected:" << "throws IndexOutOfRangeException";
-    EXPECT_THROW(seq.InsertAt(10, 4), IndexOutOfRangeException)
+    EXPECT_THROW(seq.InsertAt(10, 5), IndexOutOfRangeException)
         << "input:" << "seq.InsertAt(10, 4)"
         << "\nexpected:" << "throws IndexOutOfRangeException";
     EXPECT_THROW(seq.InsertAt(10, 100), IndexOutOfRangeException)

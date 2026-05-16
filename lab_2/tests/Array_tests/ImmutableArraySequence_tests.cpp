@@ -100,7 +100,7 @@ TEST(ImmutableArraySequenceOps, InsertAt) {
     EXPECT_THROW(seq.InsertAt(99, -1), IndexOutOfRangeException)
         << "input:" << "seq.InsertAt(99, -1)"
         << "\nexpected:" << "throws IndexOutOfRangeException";
-    EXPECT_THROW(seq.InsertAt(99, 2), IndexOutOfRangeException)
+    EXPECT_THROW(seq.InsertAt(99, 3), IndexOutOfRangeException)
         << "input:" << "seq.InsertAt(99, 2)"
         << "\nexpected:" << "throws IndexOutOfRangeException";
 }

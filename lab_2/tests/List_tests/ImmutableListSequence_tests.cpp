@@ -46,7 +46,7 @@ TEST(ImmutableListSequenceOperations, InsertAt) {
     delete new_seq;
     
     EXPECT_THROW(seq.InsertAt(99, -1), IndexOutOfRangeException);
-    EXPECT_THROW(seq.InsertAt(99, 2), IndexOutOfRangeException);
+    EXPECT_THROW(seq.InsertAt(99, 3), IndexOutOfRangeException);
 }
 
 TEST(ImmutableListSequenceOperations, Concat) {

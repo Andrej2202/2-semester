@@ -20,18 +20,6 @@ set(CMAKE_AUTOMOC ON)
 #set(CMAKE_AUTOUIC ON) # (User Interface Compiler) преобразует XML-файлы .ui (из Qt Designer) в C++-код.
 #set(CMAKE_AUTORCC ON) # (Resource Compiler) компилирует ресурсы из .qrc (изображения, строки локализации и т.д.) в бинарный формат.
 
-set(BUILD_GMOCK OFF CACHE BOOL "" FORCE) 
-# Отключает сборку библиотеки Google Mock (у меня мок тестов нет, он мне не сдался)
-set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
-# сохранение переменной в CMakeCache.txt, а не как локальной скрипта
-
-# Отключает копирование в систему, тк При cmake --install файлы GTest (*.lib", "*.a", заголовки, ".cmake-конфиги) не будут записаны в /usr/local", "C:\Program Files и т.д.
-# Изолирует зависимость, тк GTest остаётся строго внутри папки build/. Другие проекты его не увидят, например, если в уже установлен другой GTest.
-# Ускоряет конфигурацию и install, тк CMake не тратит время на генерацию и выполнение правил установки. Команда cmake --install . проходит мгновенно.
-
-
-add_subdirectory(googletest)
-# Добавляет папку googletest как подпроект. CMake найдёт в ней свой CMakeLists.txt и соберёт целевые библиотеки gtest и gtest_main локально в папке сборки.
 
 set(CORE_DIR  ${CMAKE_SOURCE_DIR}/src/core)
 set(UI_DIR    ${CMAKE_SOURCE_DIR}/src/UI)
@@ -74,25 +62,42 @@ target_link_libraries(lab2_gui PRIVATE
     Qt6::Widgets
 )
 
-add_executable(Lab2Tests
-    tests/Array_tests/DynamicArray_tests.cpp
-    tests/Array_tests/ArraySequenceConstruct_tests.cpp
-    tests/Array_tests/MutableArraySequence_tests.cpp
-    tests/Array_tests/ImmutableArraySequence_tests.cpp
-    tests/List_tests/LinkedList_tests.cpp
-    tests/List_tests/ImmutableListSequence_tests.cpp
-    tests/List_tests/MutableListSequence_tests.cpp
-    tests/List_tests/ListSequenceConstructors_tests.cpp
-    tests/BitSequence_tests/Bit_tests.cpp
-)
-#target_include_directories(Lab2Tests PRIVATE ${CORE_DIR} ${SEQ_DIR} ${ARRAY_DIR} ${BIT_DIR} ${LIST_DIR})
-target_link_libraries(Lab2Tests PRIVATE 
-    core_lib
-    gtest gtest_main
-)
 
-enable_testing()
-add_test(NAME LabTests COMMAND Lab2Tests)
+if(BUILD_TESTING)
+
+    set(BUILD_GMOCK OFF CACHE BOOL "" FORCE) 
+    # Отключает сборку библиотеки Google Mock (у меня мок тестов нет, он мне не сдался)
+    set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
+    # сохранение переменной в CMakeCache.txt, а не как локальной скрипта
+
+    # Отключает копирование в систему, тк При cmake --install файлы GTest (*.lib", "*.a", заголовки, ".cmake-конфиги) не будут записаны в /usr/local", "C:\Program Files и т.д.
+    # Изолирует зависимость, тк GTest остаётся строго внутри папки build/. Другие проекты его не увидят, например, если в уже установлен другой GTest.
+    # Ускоряет конфигурацию и install, тк CMake не тратит время на генерацию и выполнение правил установки. Команда cmake --install . проходит мгновенно.
+
+
+    add_subdirectory(googletest)
+    # Добавляет папку googletest как подпроект. CMake найдёт в ней свой CMakeLists.txt и соберёт целевые библиотеки gtest и gtest_main локально в папке сборки.
+
+    add_executable(Lab2Tests
+        tests/Array_tests/DynamicArray_tests.cpp
+        tests/Array_tests/ArraySequenceConstruct_tests.cpp
+        tests/Array_tests/MutableArraySequence_tests.cpp
+        tests/Array_tests/ImmutableArraySequence_tests.cpp
+        tests/List_tests/LinkedList_tests.cpp
+        tests/List_tests/ImmutableListSequence_tests.cpp
+        tests/List_tests/MutableListSequence_tests.cpp
+        tests/List_tests/ListSequenceConstructors_tests.cpp
+        tests/BitSequence_tests/Bit_tests.cpp
+    )
+    #target_include_directories(Lab2Tests PRIVATE ${CORE_DIR} ${SEQ_DIR} ${ARRAY_DIR} ${BIT_DIR} ${LIST_DIR})
+    target_link_libraries(Lab2Tests PRIVATE 
+        core_lib
+        gtest gtest_main
+    )
+
+    enable_testing()
+    add_test(NAME LabTests COMMAND Lab2Tests)
+endif()
 
 # D:\2_semester\lab_2>.\build\Lab2Tests.exe --gtest_color=yes
 

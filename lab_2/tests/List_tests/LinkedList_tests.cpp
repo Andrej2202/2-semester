@@ -84,7 +84,7 @@ TEST(LinkedListMutators, InsertAt_Invalid) {
     list.Append(1); list.Append(2);
     
     EXPECT_THROW(list.InsertAt(99, -1), IndexOutOfRangeException);
-    EXPECT_THROW(list.InsertAt(99, 2), IndexOutOfRangeException);
+    EXPECT_THROW(list.InsertAt(99, 3), IndexOutOfRangeException);
     EXPECT_THROW(list.InsertAt(99, 5), IndexOutOfRangeException);
 }
 

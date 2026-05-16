@@ -103,7 +103,7 @@ TEST(ListSequenceConstructors, Templates_CustomStruct) {
     Point arr[] = { {0, 20}, {30, 40}, {50, 60} };
     
     MutableListSequence<Point> m_seq(arr, 3);
-    EXPECT_EQ(m_seq.Get(0).x, 10);
+    EXPECT_EQ(m_seq.Get(0).x, 10); //спецом сломано
     EXPECT_EQ(m_seq.GetLast().y, 60);
     
     ImmutableListSequence<Point> i_seq(arr, 3);

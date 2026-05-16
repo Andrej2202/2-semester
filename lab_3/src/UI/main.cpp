@@ -19,6 +19,9 @@ Sequence<T>* readSequence(const std::string& label) {
     return seq;
 }
 
+template<typename T >
+
+
 int main() {
     LinearForm<double>* currentForm = nullptr;
 

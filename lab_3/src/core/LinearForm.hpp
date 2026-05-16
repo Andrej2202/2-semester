@@ -2,65 +2,32 @@
 #include <Sequence.hpp>
 #include <Algorithms.hpp>
 #include <Exceptions.hpp>
-#include <ostream>
 #include <algorithm>
 
-template <typename <typename> class Container, typename T>
-class LinForm {
-    Container coeff;
-};
-
-
-template<typename T>
+template <template <typename> class Container, typename T>
 class LinearForm {
 private:
-    Sequence<T>* coeffs;
+    Container<T>* coeffs;
 
-    //глубокое копирование дабы не юзать Clone() из Sequence a.k.a разделение ответственности?....
-    Sequence<T>* cloneCoeffs(const Sequence<T>* src) const {
-        if (!src) return nullptr;
-        Sequence<T>* copy = src->CreateEmpty();
-        try {
-            for (size_t i = 0; i < src->GetLength(); i++) {
-                copy->Append(src->Get(i));
-            }
-        } catch (...) {
-            delete copy;
-            throw;
-        }
-        return copy;
-    }
+    Container<T>* cloneCoeffs(const Container<T>* src) const;
 
 public:
-    explicit LinearForm(Sequence<T>* coefficients);
+    LinearForm(Container<T>* coefficients);
     LinearForm(const LinearForm& other);
     LinearForm& operator=(const LinearForm& other);
     ~LinearForm();
 
-    
     LinearForm operator+(const LinearForm& other) const;
     LinearForm operator-(const LinearForm& other) const;
     LinearForm operator*(const T& scalar) const;
     
-    
-    T Evaluate(const Sequence<T>& args) const;
-    T operator()(const Sequence<T>& args) const;
 
-    
-    const Sequence<T>& GetCoefficients() const { return *coeffs; }
-    size_t GetArity() const { return coeffs->GetLength() - 1; }
+    T Evaluate(const Container<T>& args) const;
+    T operator()(const Container<T>& args) const;
 
-    // Чисто для отладки и терминального интерфейса на 1 парах
-    friend std::ostream& operator<<(std::ostream& os, const LinearForm& form) {
-        os << "F(x) = ";
-        for (size_t i = 0; i < form.coeffs->GetLength(); i++) {
-            os << form.coeffs->Get(i);
-            if (i == 0 && form.coeffs->GetLength() > 1) os << " + ";
-            else if (i > 0 && i < form.coeffs->GetLength() - 1) os << "x" << i << " + ";
-            else if (i == form.coeffs->GetLength() - 1 && i > 0) os << "x" << i;
-        }
-        return os;
-    }
+
+    const Container<T>& GetCoefficients() const;
+    size_t GetArity() const;
 };
 
 #include "LinearForm.tpp"

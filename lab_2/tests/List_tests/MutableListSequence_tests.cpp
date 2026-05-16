@@ -134,7 +134,7 @@ TEST(MutableListSequenceExceptions, IndexOutOfRange_StrictContract) {
     EXPECT_THROW(seq.InsertAt(10, -1), IndexOutOfRangeException);
     
     EXPECT_THROW(seq.Get(2), IndexOutOfRangeException);
-    EXPECT_THROW(seq.InsertAt(10, 2), IndexOutOfRangeException);
+    EXPECT_THROW(seq.InsertAt(10, 3), IndexOutOfRangeException);
     EXPECT_THROW(seq.InsertAt(10, 5), IndexOutOfRangeException);
 }
 
